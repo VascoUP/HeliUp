@@ -12,3 +12,9 @@ This game gives the player a set of decisions that he has to make to get farther
 The decisions lie on the fact that collecting the items won't be easy and might risk losing right away, so if it's not necessary the player can choose not to pick up some items.
 
 The goal of the game is to get as far as possible.
+
+NO MORE ROCKETS, it's a helicopter, deal with it.
+Everything else stands as described.
+
+A few more aditions are some skyscrapers as obstacles that you have to go around.
+The background will be static.
