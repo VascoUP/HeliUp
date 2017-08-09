@@ -1,12 +1,15 @@
 package com.av.game.logic.physics;
 
 import com.av.game.logic.object.PhysicsObject;
+import com.badlogic.gdx.math.Vector2;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class Physics {
     public static Physics physics;
+
+    private final float GRAVITY_ACCELERATION = 0.5f;
 
     private LinkedList<PhysicsObject> objects;
 
@@ -32,11 +35,11 @@ public class Physics {
 
     public void update() {
         for(PhysicsObject object : objects) {
-            Point2D position = object.getPosition();
-            double x = object.getVelocity_x() + position.getX();
-            object.setVelocity_y(object.getVelocity_y() + object.getAcceleration_y());
-            double y = object.getVelocity_y() + position.getX();
-            position.setLocation(x, y);
+            Vector2 position = object.getPosition();
+            float x = object.getVelocity_x() + position.x;
+            object.setVelocity_y(object.getVelocity_y() + object.getAcceleration_y() - GRAVITY_ACCELERATION);
+            float y = object.getVelocity_y() + position.y;
+            position.set(x, y);
         }
     }
 

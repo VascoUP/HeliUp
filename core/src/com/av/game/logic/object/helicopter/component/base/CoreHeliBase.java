@@ -1,9 +1,9 @@
-package com.av.game.logic.object.rocket.component.base;
+package com.av.game.logic.object.helicopter.component.base;
 
 
 import java.awt.geom.Point2D;
 
-public class CoreRocketBase implements RocketBase {
+public class CoreHeliBase implements HeliBase {
     private Point2D velocity;
 
     @Override

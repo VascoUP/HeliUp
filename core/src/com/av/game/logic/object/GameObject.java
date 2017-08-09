@@ -1,19 +1,21 @@
 package com.av.game.logic.object;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.awt.geom.Point2D;
 
 public class GameObject {
-    private Point2D position;
+    private Vector2 position;
 
-    public GameObject (Point2D position) {
+    public GameObject (Vector2 position) {
         this.position = position;
     }
 
-    public Point2D getPosition() {
+    public Vector2 getPosition() {
         return this.position;
     }
 
-    public void setPosition(Point2D position) {
+    public void setPosition(Vector2 position) {
         this.position = position;
     }
 }

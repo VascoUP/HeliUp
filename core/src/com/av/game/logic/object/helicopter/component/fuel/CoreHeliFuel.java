@@ -1,6 +1,6 @@
-package com.av.game.logic.object.rocket.component.fuel;
+package com.av.game.logic.object.helicopter.component.fuel;
 
-public class CoreRocketFuel implements RocketFuel {
+public class CoreHeliFuel implements HeliFuel {
     private int capacity;
     private int fuelPerSec;
 
