@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class PhysicsObject extends GameObject {
     private float acceleration_y;
     private float velocity_y;
-    private float velocity_x;
+    protected float velocity_x;
 
     public PhysicsObject(Vector2 position) {
         super(position);

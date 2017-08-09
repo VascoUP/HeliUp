@@ -9,20 +9,18 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class HeliGame extends ApplicationAdapter {
 	private static final String TAG = "HeliHandler";
 
-	public static float VIEW_WIDTH;
+	public static float VIEW_WIDTH = 800f;
 	public static float VIEW_HEIGHT;
 
 	private SpriteBatch batch;
 	private OrthographicCamera cam;
 
-	private float stateTime;
+	private float stateTime = 0f;
 
 	private ObjectAnimation helicopter;
 	
@@ -39,15 +37,10 @@ public class HeliGame extends ApplicationAdapter {
 		helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
 		helicopter.setRotation(-10f);
 
-		stateTime = 0f;
-
-		VIEW_WIDTH = 800f;
-		VIEW_HEIGHT = 800f * (Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth());
+		VIEW_HEIGHT = VIEW_WIDTH * (Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth());
 
 		cam = new OrthographicCamera(VIEW_WIDTH, VIEW_HEIGHT);
 		cam.position.set(VIEW_WIDTH / 2f, VIEW_HEIGHT / 2f, 0);
-		Gdx.app.log(TAG, "Cam size " + VIEW_WIDTH + " " + VIEW_HEIGHT);
-		Gdx.app.log(TAG, "Cam position " + cam.position);
 		cam.update();
 
 	}
@@ -60,13 +53,13 @@ public class HeliGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		/*cam.position.set(cam.viewportWidth / 2f + Game.getGame().getHelicopter().getPosition().x - 200f,
-						cam.viewportHeight / 2f, 0);*/
+		cam.position.set(cam.viewportWidth / 2f + Game.getGame().getHelicopter().getPosition().x - 100f,
+						cam.viewportHeight / 2f, 0);
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clear screen
-		stateTime += Gdx.graphics.getDeltaTime(); // Accumulate elapsed animation time
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stateTime += Gdx.graphics.getDeltaTime();
 
 		InputObserver.getInstance().handleInput();
 

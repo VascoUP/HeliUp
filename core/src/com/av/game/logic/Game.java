@@ -29,7 +29,7 @@ public class Game {
     }
 
     public void create() {
-        helicopter = new Helicopter(new Vector2(200f, 200f));
+        helicopter = new Helicopter(new Vector2(100f, 200f));
         items.clear();
         buildings.clear();
     }

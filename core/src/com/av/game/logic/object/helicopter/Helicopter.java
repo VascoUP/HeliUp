@@ -15,6 +15,7 @@ public class Helicopter extends PhysicsObject {
 
     public Helicopter(Vector2 position) {
         super(position);
+        velocity_x = 10f;
         heliBase = new CoreHeliBase();
         heliFuel = new CoreHeliFuel();
     }
