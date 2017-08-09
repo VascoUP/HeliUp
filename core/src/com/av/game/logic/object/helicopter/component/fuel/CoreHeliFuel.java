@@ -2,15 +2,27 @@ package com.av.game.logic.object.helicopter.component.fuel;
 
 public class CoreHeliFuel implements HeliFuel {
     private int capacity;
-    private int fuelPerSec;
+    private int fuelPerFrame;
+    private int currFuel;
 
-    @Override
-    public void calcFuel() {
-
+    public CoreHeliFuel() {
+        capacity = 1000;
+        currFuel = 1000;
+        fuelPerFrame = 1;
     }
 
     @Override
-    public void calcFuelPerSec() {
+    public void calcFuel() {
+        currFuel -= fuelPerFrame;
+    }
 
+    @Override
+    public int getCapacity() {
+        return capacity;
+    }
+
+    @Override
+    public int getFuel() {
+        return currFuel;
     }
 }

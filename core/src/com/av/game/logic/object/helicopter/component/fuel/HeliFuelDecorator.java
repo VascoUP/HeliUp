@@ -13,7 +13,12 @@ public abstract class HeliFuelDecorator implements HeliFuel {
     }
 
     @Override
-    public void calcFuelPerSec() {
-        heliFuel.calcFuelPerSec();
+    public int getCapacity() {
+        return heliFuel.getCapacity();
+    }
+
+    @Override
+    public int getFuel() {
+        return heliFuel.getFuel();
     }
 }

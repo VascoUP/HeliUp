@@ -30,13 +30,18 @@ public class Game {
     }
 
     public void create() {
-        helicopter = new Helicopter(new Vector2(100f, 200f));
+        helicopter = new Helicopter(new Vector2(100f, HeliGame.VIEW_HEIGHT / 2f));
         items.clear();
         buildings.clear();
     }
 
     public Helicopter getHelicopter() {
         return helicopter;
+    }
+
+
+    public void update() {
+        helicopter.update();
     }
 
     public boolean endGame() {
