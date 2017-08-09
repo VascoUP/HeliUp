@@ -1,7 +1,7 @@
 package com.av.game.logic.object.item;
 
-import com.av.game.logic.object.rocket.Rocket;
+import com.av.game.logic.object.helicopter.Helicopter;
 
 public interface Item {
-    void decorateRocket(Rocket rocket);
+    void decorateRocket(Helicopter helicopter);
 }
