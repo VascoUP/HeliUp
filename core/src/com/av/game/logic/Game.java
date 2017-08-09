@@ -1,8 +1,9 @@
 package com.av.game.logic;
 
+import com.av.game.HeliGame;
 import com.av.game.logic.object.GameObject;
-import com.av.game.logic.object.item.Item;
 import com.av.game.logic.object.helicopter.Helicopter;
+import com.av.game.logic.object.item.Item;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
@@ -41,6 +42,6 @@ public class Game {
     public boolean endGame() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        return (helicopter.getPosition().y < 50f || helicopter.getPosition().y > 800 * (h / w));
+        return (helicopter.getPosition().y < 0 || helicopter.getPosition().y > HeliGame.VIEW_HEIGHT);
     }
 }

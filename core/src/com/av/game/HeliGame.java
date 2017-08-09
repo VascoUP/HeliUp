@@ -14,8 +14,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class HeliGame extends ApplicationAdapter {
 	private static final String TAG = "HeliHandler";
 
-	public static float VIEW_WIDTH = 800f;
-	public static float VIEW_HEIGHT;
+	public static float VIEW_WIDTH;
+	public static float VIEW_HEIGHT = 780f;
 
 	private SpriteBatch batch;
 	private OrthographicCamera cam;
@@ -26,6 +26,8 @@ public class HeliGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		VIEW_WIDTH = VIEW_HEIGHT * (Gdx.graphics.getWidth() / (float)Gdx.graphics.getHeight());
+
 		Physics.createInstance();
 		Game.createInstance();
 		Game.getGame().create();
@@ -37,12 +39,9 @@ public class HeliGame extends ApplicationAdapter {
 		helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
 		helicopter.setRotation(-10f);
 
-		VIEW_HEIGHT = VIEW_WIDTH * (Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth());
-
 		cam = new OrthographicCamera(VIEW_WIDTH, VIEW_HEIGHT);
 		cam.position.set(VIEW_WIDTH / 2f, VIEW_HEIGHT / 2f, 0);
 		cam.update();
-
 	}
 
 	private void restart() {
