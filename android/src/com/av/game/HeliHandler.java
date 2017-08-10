@@ -1,5 +1,6 @@
-package com.av.game.input;
+package com.av.game;
 
+import com.av.game.input.InputHandler;
 import com.av.game.logic.Game;
 import com.badlogic.gdx.Gdx;
 

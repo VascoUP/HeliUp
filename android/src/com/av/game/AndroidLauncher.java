@@ -2,7 +2,6 @@ package com.av.game;
 
 import android.os.Bundle;
 
-import com.av.game.input.HeliHandler;
 import com.av.game.input.InputHandler;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
