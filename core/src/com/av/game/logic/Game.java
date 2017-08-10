@@ -30,7 +30,7 @@ public class Game {
     }
 
     public void create() {
-        helicopter = new Helicopter(new Vector2(100f, HeliGame.VIEW_HEIGHT / 2f));
+        helicopter = new Helicopter(new Vector2(200f, HeliGame.VIEW_HEIGHT / 2f));
         items.clear();
         buildings.clear();
     }

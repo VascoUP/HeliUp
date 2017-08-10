@@ -1,7 +1,7 @@
 package com.av.game;
 
 import com.av.game.graphics.ObjectAnimation;
-import com.av.game.input.HeliHandler;
+import com.av.game.input.InputHandler;
 import com.av.game.input.InputObserver;
 import com.av.game.logic.Game;
 import com.av.game.logic.physics.Physics;
@@ -23,16 +23,21 @@ public class HeliGame extends ApplicationAdapter {
 	private float stateTime = 0f;
 
 	private ObjectAnimation helicopter;
+
+	public HeliGame(InputHandler[] handlers) {
+		super();
+		Physics.createInstance();
+		Game.createInstance();
+		InputObserver.createInstance();
+		for(InputHandler handler : handlers)
+			InputObserver.addInputListenner(handler);
+	}
 	
 	@Override
 	public void create () {
 		VIEW_WIDTH = VIEW_HEIGHT * (Gdx.graphics.getWidth() / (float)Gdx.graphics.getHeight());
 
-		Physics.createInstance();
-		Game.createInstance();
 		Game.getGame().create();
-		InputObserver.createInstance();
-		InputObserver.addInputListenner(new HeliHandler());
 
 		batch = new SpriteBatch();
 
@@ -52,7 +57,7 @@ public class HeliGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		cam.position.set(cam.viewportWidth / 2f + Game.getGame().getHelicopter().getPosition().x - 100f,
+		cam.position.set(cam.viewportWidth / 2f + Game.getGame().getHelicopter().getPosition().x - 200f,
 						cam.viewportHeight / 2f, 0);
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
