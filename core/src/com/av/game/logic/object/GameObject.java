@@ -25,4 +25,6 @@ public class GameObject {
     public void setPosition(Vector2 position) {
         this.position = position;
     }
+
+    public void destroy() {}
 }

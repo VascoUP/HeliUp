@@ -37,4 +37,8 @@ public class PhysicsObject extends GameObject {
     public void setVelocity_x(float velocity_x) {
         this.velocity_x = velocity_x;
     }
+
+    public void destroy() {
+        Physics.getInstance().rmObject(this);
+    }
 }

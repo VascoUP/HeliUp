@@ -18,4 +18,9 @@ public class CollidableObject extends GameObject implements Collidable {
     public boolean isColliding(GameObject object) {
         return Intersector.overlapConvexPolygons(object.getCollision(), collision);
     }
+
+    @Override
+    public void destroy() {
+        CollisionObserver.removeCollidable(this);
+    }
 }

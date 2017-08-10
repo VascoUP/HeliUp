@@ -26,7 +26,6 @@ public class HeliGame extends ApplicationAdapter {
 
 	public HeliGame(InputHandler[] handlers) {
 		super();
-		Physics.createInstance();
 		Game.createInstance();
 		InputObserver.createInstance();
 		for(InputHandler handler : handlers)
@@ -50,7 +49,6 @@ public class HeliGame extends ApplicationAdapter {
 	}
 
 	private void restart() {
-		Physics.getInstance().clear();
 		Game.getGame().create();
 		helicopter.setGameObject(Game.getGame().getHelicopter());
 	}

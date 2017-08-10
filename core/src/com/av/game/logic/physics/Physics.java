@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class Physics {
-    public static Physics physics;
+    public static Physics instance;
 
     private final float GRAVITY_ACCELERATION = 0.5f;
 
@@ -19,19 +19,23 @@ public class Physics {
     }
 
     public static void createInstance() {
-        physics = new Physics();
+        instance = new Physics();
     }
 
     public static Physics getInstance() {
-        return physics;
+        return instance;
     }
 
-    public void addObject(PhysicsObject object) {
-        objects.add(object);
+    public static void addObject(PhysicsObject object) {
+        instance.objects.add(object);
     }
 
-    public void rmObject(PhysicsObject object) {
-        objects.remove(object);
+    public static void rmObject(PhysicsObject object) {
+        instance.objects.remove(object);
+    }
+
+    public static void clear() {
+        instance.objects.clear();
     }
 
     public void update() {
@@ -44,7 +48,4 @@ public class Physics {
         }
     }
 
-    public void clear() {
-        objects.clear();
-    }
 }

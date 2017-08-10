@@ -21,6 +21,8 @@ public class Game {
     private LinkedList<GameObject> buildings;
 
     private Game() {
+        Physics.createInstance();
+        CollisionObserver.createInstance();
         items = new LinkedList<Item>();
         buildings = new LinkedList<GameObject>();
     }
@@ -34,10 +36,13 @@ public class Game {
     }
 
     public void create() {
+        Physics.clear();
+        CollisionObserver.clear();
+
         endGame = false;
-        helicopter = new Helicopter(new Vector2(200f, HeliGame.VIEW_HEIGHT / 2f));
         items.clear();
         buildings.clear();
+        helicopter = new Helicopter(new Vector2(200f, HeliGame.VIEW_HEIGHT / 2f));
     }
 
     public Helicopter getHelicopter() {
@@ -53,8 +58,6 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
         return endGame || (helicopter.getPosition().y < 0 || helicopter.getPosition().y > HeliGame.VIEW_HEIGHT);
     }
 
