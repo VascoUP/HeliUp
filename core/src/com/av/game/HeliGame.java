@@ -1,15 +1,19 @@
 package com.av.game;
 
 import com.av.game.graphics.ObjectAnimation;
+import com.av.game.graphics.ObjectRender;
+import com.av.game.graphics.ObjectSprite;
 import com.av.game.input.InputHandler;
 import com.av.game.input.InputObserver;
 import com.av.game.logic.Game;
-import com.av.game.logic.physics.Physics;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class HeliGame extends ApplicationAdapter {
 	private static final String TAG = "HeliHandler";
@@ -22,7 +26,7 @@ public class HeliGame extends ApplicationAdapter {
 
 	private float stateTime = 0f;
 
-	private ObjectAnimation helicopter;
+	private Set<ObjectRender> objects;
 
 	public HeliGame(InputHandler[] handlers) {
 		super();
@@ -40,8 +44,10 @@ public class HeliGame extends ApplicationAdapter {
 
 		batch = new SpriteBatch();
 
-		helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
+		objects = new HashSet<ObjectRender>();
+		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
 		helicopter.setRotation(-10f);
+		objects.add(helicopter);
 
 		cam = new OrthographicCamera(VIEW_WIDTH, VIEW_HEIGHT);
 		cam.position.set(VIEW_WIDTH / 2f, VIEW_HEIGHT / 2f, 0);
@@ -50,7 +56,10 @@ public class HeliGame extends ApplicationAdapter {
 
 	private void restart() {
 		Game.getGame().create();
-		helicopter.setGameObject(Game.getGame().getHelicopter());
+		objects.clear();
+		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
+		helicopter.setRotation(-10f);
+		objects.add(helicopter);
 	}
 
 	@Override
@@ -72,13 +81,15 @@ public class HeliGame extends ApplicationAdapter {
 		}
 
 		batch.begin();
-		helicopter.render(stateTime, batch);
+		for(ObjectRender objectRender : objects)
+			objectRender.render(stateTime, batch);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		helicopter.dispose();
+		for(ObjectRender objectRender : objects)
+			objectRender.dispose();
 	}
 }

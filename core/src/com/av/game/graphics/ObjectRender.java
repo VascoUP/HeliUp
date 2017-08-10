@@ -31,6 +31,11 @@ public class ObjectRender implements Renderable {
 
     }
 
+    @Override
+    public void dispose() {
+
+    }
+
     public float getScale_x() {
         return scale_x;
     }
