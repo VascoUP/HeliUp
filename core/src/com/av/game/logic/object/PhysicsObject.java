@@ -1,6 +1,7 @@
 package com.av.game.logic.object;
 
 import com.av.game.logic.physics.Physics;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 public class PhysicsObject extends GameObject {
@@ -8,9 +9,9 @@ public class PhysicsObject extends GameObject {
     private float velocity_y;
     protected float velocity_x;
 
-    public PhysicsObject(Vector2 position) {
-        super(position);
-        Physics.getInstance().addObject(this);
+    public PhysicsObject(Vector2 position, Polygon polygon) {
+        super(position, polygon);
+        Physics.addObject(this);
     }
 
 
@@ -39,6 +40,6 @@ public class PhysicsObject extends GameObject {
     }
 
     public void destroy() {
-        Physics.getInstance().rmObject(this);
+        Physics.rmObject(this);
     }
 }

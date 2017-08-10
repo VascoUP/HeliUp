@@ -10,8 +10,9 @@ public class GameObject {
     private Vector2 position;
     protected Polygon collision;
 
-    public GameObject (Vector2 position) {
+    public GameObject (Vector2 position, Polygon polygon) {
         this.position = position;
+        this.collision = polygon;
     }
 
     public Vector2 getPosition() {
