@@ -18,7 +18,17 @@ public abstract class HeliFuelDecorator implements HeliFuel {
     }
 
     @Override
+    public void setCapacity(int capacity) {
+        heliFuel.setCapacity(capacity);
+    }
+
+    @Override
     public int getFuel() {
         return heliFuel.getFuel();
+    }
+
+    @Override
+    public void setFuel(int fuel) {
+        heliFuel.setFuel(fuel);
     }
 }

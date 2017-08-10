@@ -4,6 +4,8 @@ import com.av.game.HeliGame;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.helicopter.Helicopter;
 import com.av.game.logic.object.item.Item;
+import com.av.game.logic.physics.CollisionObserver;
+import com.av.game.logic.physics.Physics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
@@ -11,6 +13,8 @@ import java.util.LinkedList;
 
 public class Game {
     private static Game instance;
+
+    private boolean endGame;
 
     private Helicopter helicopter;
     private LinkedList<Item> items;
@@ -30,6 +34,7 @@ public class Game {
     }
 
     public void create() {
+        endGame = false;
         helicopter = new Helicopter(new Vector2(200f, HeliGame.VIEW_HEIGHT / 2f));
         items.clear();
         buildings.clear();
@@ -41,12 +46,19 @@ public class Game {
 
 
     public void update() {
+        Physics.getInstance().update();
+        CollisionObserver.getInstance().checkCollisions();
+        if(endGame) return;
         helicopter.update();
     }
 
-    public boolean endGame() {
+    public boolean isGameOver() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        return (helicopter.getPosition().y < 0 || helicopter.getPosition().y > HeliGame.VIEW_HEIGHT);
+        return endGame || (helicopter.getPosition().y < 0 || helicopter.getPosition().y > HeliGame.VIEW_HEIGHT);
+    }
+
+    public void endGame() {
+        endGame = true;
     }
 }

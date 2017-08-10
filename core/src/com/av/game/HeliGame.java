@@ -67,9 +67,8 @@ public class HeliGame extends ApplicationAdapter {
 
 		InputObserver.getInstance().handleInput();
 
-		Physics.getInstance().update();
 		Game.getGame().update();
-		if(Game.getGame().endGame()) {
+		if(Game.getGame().isGameOver()) {
 			restart();
 			return;
 		}

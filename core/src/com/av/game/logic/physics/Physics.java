@@ -1,5 +1,6 @@
 package com.av.game.logic.physics;
 
+import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.PhysicsObject;
 import com.badlogic.gdx.math.Vector2;
 

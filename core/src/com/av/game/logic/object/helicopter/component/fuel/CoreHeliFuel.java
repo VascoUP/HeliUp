@@ -22,7 +22,17 @@ public class CoreHeliFuel implements HeliFuel {
     }
 
     @Override
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    @Override
     public int getFuel() {
         return currFuel;
+    }
+
+    @Override
+    public void setFuel(int fuel) {
+        currFuel = fuel;
     }
 }
