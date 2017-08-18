@@ -21,5 +21,6 @@ public class Refuel extends CollidableObject implements Item {
     public void onCollision(GameObject object) {
         takeEffect();
         CollisionObserver.removeCollidable(this);
+        Game.getGame().rmItem(this);
     }
 }

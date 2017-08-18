@@ -1,8 +1,8 @@
 package com.av.game;
 
+import com.av.game.graphics.GameRenderer;
 import com.av.game.graphics.ObjectAnimation;
 import com.av.game.graphics.ObjectRender;
-import com.av.game.graphics.ObjectSprite;
 import com.av.game.input.InputHandler;
 import com.av.game.input.InputObserver;
 import com.av.game.logic.Game;
@@ -26,11 +26,10 @@ public class HeliGame extends ApplicationAdapter {
 
 	private float stateTime = 0f;
 
-	private Set<ObjectRender> objects;
-
 	public HeliGame(InputHandler[] handlers) {
 		super();
 		Game.createInstance();
+		GameRenderer.createInstance();
 		InputObserver.createInstance();
 		for(InputHandler handler : handlers)
 			InputObserver.addInputListenner(handler);
@@ -44,10 +43,9 @@ public class HeliGame extends ApplicationAdapter {
 
 		batch = new SpriteBatch();
 
-		objects = new HashSet<ObjectRender>();
 		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
 		helicopter.setRotation(-10f);
-		objects.add(helicopter);
+		GameRenderer.addRenderable(helicopter);
 
 		cam = new OrthographicCamera(VIEW_WIDTH, VIEW_HEIGHT);
 		cam.position.set(VIEW_WIDTH / 2f, VIEW_HEIGHT / 2f, 0);
@@ -56,10 +54,10 @@ public class HeliGame extends ApplicationAdapter {
 
 	private void restart() {
 		Game.getGame().create();
-		objects.clear();
+		GameRenderer.clear();
 		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
 		helicopter.setRotation(-10f);
-		objects.add(helicopter);
+		GameRenderer.addRenderable(helicopter);
 	}
 
 	@Override
@@ -70,26 +68,24 @@ public class HeliGame extends ApplicationAdapter {
 		batch.setProjectionMatrix(cam.combined);
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stateTime += Gdx.graphics.getDeltaTime();
 
 		InputObserver.getInstance().handleInput();
 
-		Game.getGame().update();
+		Game.getGame().update(Gdx.graphics.getDeltaTime() );
 		if(Game.getGame().isGameOver()) {
 			restart();
 			return;
 		}
 
+		stateTime += Gdx.graphics.getDeltaTime();
+
 		batch.begin();
-		for(ObjectRender objectRender : objects)
-			objectRender.render(stateTime, batch);
+		GameRenderer.render(stateTime, batch);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		for(ObjectRender objectRender : objects)
-			objectRender.dispose();
 	}
 }

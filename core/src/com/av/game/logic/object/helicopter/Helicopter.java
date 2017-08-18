@@ -24,7 +24,7 @@ public class Helicopter extends PhysicsObject {
     public Helicopter(Vector2 position) {
         super(position, new Polygon(new float[] {1,12,4,43,51,49,78,59,93,34,85,16,104,12,104,10,12,0}));
         CollisionObserver.addCollisionObject(this);
-        velocity_x = 10f;
+        velocity_x = 5f;
         currState = HeliState.DOWN;
         heliBase = new CoreHeliBase();
         heliFuel = new CoreHeliFuel();

@@ -1,11 +1,13 @@
 package com.av.game.logic.physics;
 
 import com.av.game.logic.object.GameObject;
+import com.badlogic.gdx.Gdx;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class CollisionObserver {
+    private static String TAG = "CollisionObserver";
     private static CollisionObserver instance;
 
     private Set<GameObject> collision_objects;
