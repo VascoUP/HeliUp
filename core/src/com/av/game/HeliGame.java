@@ -3,6 +3,7 @@ package com.av.game;
 import com.av.game.graphics.GameRenderer;
 import com.av.game.graphics.ObjectAnimation;
 import com.av.game.graphics.ObjectRender;
+import com.av.game.gui.GameUI;
 import com.av.game.input.InputHandler;
 import com.av.game.input.InputObserver;
 import com.av.game.logic.Game;
@@ -21,6 +22,8 @@ public class HeliGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private OrthographicCamera cam;
 
+	private GameUI ui;
+
 	private float stateTime = 0f;
 
 	public HeliGame(InputHandler[] handlers) {
@@ -37,6 +40,8 @@ public class HeliGame extends ApplicationAdapter {
 		Game.createInstance();
 		GameRenderer.createInstance();
 		Game.getGame().create();
+
+        ui = new GameUI(Game.getGame());
 
 		batch = new SpriteBatch();
 
@@ -78,6 +83,7 @@ public class HeliGame extends ApplicationAdapter {
 
 		batch.begin();
 		GameRenderer.render(stateTime, batch);
+        ui.render(batch);
 		batch.end();
 	}
 	
