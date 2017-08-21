@@ -11,10 +11,12 @@ import java.util.Random;
 public class ObjectSpawn {
     private static String TAG = "ObjectSpawn";
 
-    private enum FuelState {FUEL_ADDED, FUEL_TO_ADD};
-    private FuelState state = FuelState.FUEL_TO_ADD;
+    /*private enum FuelState {FUEL_ADDED, FUEL_TO_ADD};
+    private FuelState state = FuelState.FUEL_TO_ADD;*/
 
-    private static final float FUEL_SPAWN_TIME = 1f;
+    private static final float FUEL_SPAWN_TIME = 2f;
+    private static float OBJECT_MAX_HEIGHT;
+    private static float OBJECT_MIN_HEIGHT;
     private float fuelTimer = 0f;
 
     private Game game;
@@ -22,6 +24,8 @@ public class ObjectSpawn {
     private Random random;
 
     public ObjectSpawn(Game game) {
+        OBJECT_MAX_HEIGHT = HeliGame.VIEW_HEIGHT - 100f;
+        OBJECT_MIN_HEIGHT = 50f;
         this.game = game;
         random = new Random();
     }
@@ -34,15 +38,9 @@ public class ObjectSpawn {
         fuelTimer += deltaTime;
         Gdx.app.log(TAG, "Fuel timer " + fuelTimer);
         Helicopter helicopter = game.getHelicopter();
-        /*while(fuelTimer > 1f) {
-            fuelTimer -= 1f;
-            game.addItem(new Refuel(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH, random.nextFloat() * (HeliGame.VIEW_HEIGHT - 100.0f) + 50.0f)));
-        }*/
-        if(state == FuelState.FUEL_TO_ADD && helicopter.getHeliFuel().getFuel() < 100) {
-            Gdx.app.log(TAG, "Spawn item");
-            game.addItem(new Refuel(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH, random.nextFloat() * (HeliGame.VIEW_HEIGHT - 100.0f) + 50.0f)));
-            state = FuelState.FUEL_ADDED;
-        } else if(state == FuelState.FUEL_ADDED && helicopter.getHeliFuel().getFuel() >= 100)
-            state = FuelState.FUEL_TO_ADD;
+        while(fuelTimer > FUEL_SPAWN_TIME) {
+            fuelTimer -= FUEL_SPAWN_TIME;
+            game.addItem(new Refuel(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH, random.nextFloat() * OBJECT_MAX_HEIGHT + OBJECT_MIN_HEIGHT)));
+        }
     }
 }

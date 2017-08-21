@@ -12,14 +12,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class HeliGame extends ApplicationAdapter {
 	private static final String TAG = "HeliHandler";
 
 	public static float VIEW_WIDTH;
-	public static float VIEW_HEIGHT = 780f;
+	public static final float VIEW_HEIGHT = 780f;
 
 	private SpriteBatch batch;
 	private OrthographicCamera cam;
@@ -28,8 +25,6 @@ public class HeliGame extends ApplicationAdapter {
 
 	public HeliGame(InputHandler[] handlers) {
 		super();
-		Game.createInstance();
-		GameRenderer.createInstance();
 		InputObserver.createInstance();
 		for(InputHandler handler : handlers)
 			InputObserver.addInputListenner(handler);
@@ -39,6 +34,8 @@ public class HeliGame extends ApplicationAdapter {
 	public void create () {
 		VIEW_WIDTH = VIEW_HEIGHT * (Gdx.graphics.getWidth() / (float)Gdx.graphics.getHeight());
 
+		Game.createInstance();
+		GameRenderer.createInstance();
 		Game.getGame().create();
 
 		batch = new SpriteBatch();
