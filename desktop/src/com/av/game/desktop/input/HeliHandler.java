@@ -13,11 +13,11 @@ public class HeliHandler implements InputHandler {
     @Override
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            Gdx.app.log(TAG, "is touched " + Game.getGame().getHelicopter().getPosition());
+            //Gdx.app.log(TAG, "is touched " + Game.getGame().getHelicopter().getPosition());
             if(Game.getGame().getHelicopter().getAcceleration_y() != 1f)
                 Game.getGame().getHelicopter().upForce();
         } else if (Game.getGame().getHelicopter().getAcceleration_y() != 0f){
-            Gdx.app.log(TAG, "not touching");
+            //Gdx.app.log(TAG, "not touching");
             Game.getGame().getHelicopter().resetForce();
         }
     }

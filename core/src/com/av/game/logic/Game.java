@@ -1,12 +1,14 @@
 package com.av.game.logic;
 
 import com.av.game.HeliGame;
+import com.av.game.logic.object.CollidableObject;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.ObjectObserver;
 import com.av.game.logic.object.ObjectsNotifier;
 import com.av.game.logic.object.helicopter.Helicopter;
 import com.av.game.logic.object.item.Item;
 import com.av.game.logic.object.item.Refuel;
+import com.av.game.logic.physics.Collidable;
 import com.av.game.logic.physics.CollisionObserver;
 import com.av.game.logic.physics.Physics;
 import com.badlogic.gdx.Gdx;
@@ -84,6 +86,13 @@ public class Game {
         ObjectsNotifier.getInstance().notifyCreate(object);
     }
 
+    public void rmCollidable(CollidableObject collidable) {
+        if(Item.class.isInstance(collidable))
+            rmItem((Item)collidable);
+        else
+            rmObject(collidable);
+    }
+
     private void rmObject(GameObject object) {
         ObjectsNotifier.getInstance().notifyDestroy(object);
     }
@@ -102,5 +111,9 @@ public class Game {
 
     public void endGame() {
         endGame = true;
+    }
+
+    public boolean objectOutOfBounds(GameObject object) {
+        return object.getPosition().x + object.getCollision().getBoundingRectangle().getWidth() < helicopter.getPosition().x - 200f;
     }
 }

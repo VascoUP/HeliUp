@@ -2,9 +2,11 @@ package com.av.game.graphics;
 
 import com.av.game.logic.object.GameObject;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class ObjectSprite extends ObjectRender {
     private Sprite sprite;

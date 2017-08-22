@@ -34,7 +34,7 @@ public class ObjectsNotifier {
     }
 
     public void notifyCreate(GameObject objectCreated) {
-        Gdx.app.log(TAG, "Object created " + objectCreated);
+        Gdx.app.log(TAG, "Object created " + objectCreated + " n listeners " + observers.size());
         for(ObjectObserver observer : observers)
             observer.objectCreated(objectCreated);
     }

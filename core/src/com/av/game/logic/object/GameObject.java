@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.StringBuilder;
 
 import java.awt.geom.Point2D;
 
-public class GameObject {
+public class GameObject implements Comparable {
     private static String TAG = "GameObject";
 
     private Vector2 position;
@@ -24,10 +24,16 @@ public class GameObject {
     }
 
     public Polygon getCollision() {
-        this.collision.setPosition(0f, 0f);
+        //this.collision.setTransform(box2d.coordPixelsToWorld(x,y),0);
+        this.collision.setPosition(0,0);
         this.collision.translate(position.x, position.y);
         return this.collision;
     }
 
     public void destroy() {}
+
+    @Override
+    public int compareTo(Object o) {
+        return (int)position.x;
+    }
 }

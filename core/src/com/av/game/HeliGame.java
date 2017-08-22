@@ -9,9 +9,11 @@ import com.av.game.input.InputObserver;
 import com.av.game.logic.Game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class HeliGame extends ApplicationAdapter {
 	private static final String TAG = "HeliHandler";
@@ -20,6 +22,7 @@ public class HeliGame extends ApplicationAdapter {
 	public static final float VIEW_HEIGHT = 780f;
 
 	private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
 	private OrthographicCamera cam;
 
 	private GameUI ui;
@@ -43,9 +46,10 @@ public class HeliGame extends ApplicationAdapter {
 
         ui = new GameUI(Game.getGame());
 
-		batch = new SpriteBatch();
+		shapeRenderer = new ShapeRenderer();
+        batch = new SpriteBatch();
 
-		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
+		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.02f);
 		helicopter.setRotation(-10f);
 		GameRenderer.addRenderable(helicopter);
 
@@ -68,8 +72,14 @@ public class HeliGame extends ApplicationAdapter {
 						cam.viewportHeight / 2f, 0);
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
+        shapeRenderer.setProjectionMatrix(cam.combined);
 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(0.2f,0.6f,0.9f,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        Gdx.gl.glDisable(GL20.GL_BLEND);
 
 		InputObserver.getInstance().handleInput();
 
@@ -85,6 +95,11 @@ public class HeliGame extends ApplicationAdapter {
 		GameRenderer.render(stateTime, batch);
         ui.render(batch);
 		batch.end();
+
+        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        GameRenderer.shapeRender(shapeRenderer);
+        shapeRenderer.end();
 	}
 	
 	@Override

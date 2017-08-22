@@ -1,7 +1,10 @@
 package com.av.game.graphics;
 
 import com.av.game.logic.object.GameObject;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Polygon;
 
 public class ObjectRender implements Renderable {
     GameObject gameObject;
@@ -29,6 +32,12 @@ public class ObjectRender implements Renderable {
     @Override
     public void render(float stateTime, SpriteBatch batch) {
 
+    }
+
+    @Override
+    public void shapeRender(ShapeRenderer shapeRenderer) {
+        Polygon objPolygon = gameObject.getCollision();
+        shapeRenderer.polygon(objPolygon.getTransformedVertices());
     }
 
     @Override

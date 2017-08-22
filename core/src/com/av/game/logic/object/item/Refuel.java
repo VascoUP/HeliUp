@@ -1,14 +1,16 @@
 package com.av.game.logic.object.item;
 
+import com.av.game.HeliGame;
 import com.av.game.logic.Game;
 import com.av.game.logic.object.CollidableObject;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.physics.CollisionObserver;
+import com.av.game.logic.throwable.OccupiedPositionError;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 public class Refuel extends CollidableObject implements Item {
-    public Refuel(Vector2 position) {
+    public Refuel(Vector2 position) throws OccupiedPositionError {
         super(position, new Polygon(new float[] {0,0,0,27,23,27,23,0}));
     }
 
@@ -23,4 +25,5 @@ public class Refuel extends CollidableObject implements Item {
         CollisionObserver.removeCollidable(this);
         Game.getGame().rmItem(this);
     }
+
 }

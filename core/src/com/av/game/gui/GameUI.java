@@ -12,8 +12,13 @@ public class GameUI {
     private BitmapFont font;
     private Game game;
 
-    public static float UI_WIDTH;
-    public static final float UI_HEIGHT = 780;
+    private static float UI_WIDTH;
+    private static final float UI_HEIGHT = 780;
+
+    private static float FUEL_X = 20;
+    private static float FUEL_Y = 60;
+    private static float KM_X = 20;
+    private static float KM_Y = UI_HEIGHT - 60;
 
     private OrthographicCamera cam;
 
@@ -23,7 +28,7 @@ public class GameUI {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Xeron.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 40;
-        parameter.characters = "FUEL0123456789:";
+        parameter.characters = "FUELKM0123456789:";
 
         font = generator.generateFont(parameter);
         font.setColor(Color.WHITE);
@@ -41,6 +46,7 @@ public class GameUI {
     public void render(SpriteBatch batch) {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
-        font.draw(batch, "FUEL:" + game.getHelicopter().getHeliFuel().getFuel(), 20, 60);
+        font.draw(batch, "KM:" + (int)(game.getHelicopter().getPosition().x/100), KM_X, KM_Y);
+        font.draw(batch, "FUEL:" + game.getHelicopter().getHeliFuel().getFuel(), FUEL_X, FUEL_Y);
     }
 }

@@ -1,11 +1,15 @@
 package com.av.game.graphics;
 
+import com.av.game.logic.Game;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.ObjectObserver;
 import com.av.game.logic.object.ObjectsNotifier;
+import com.av.game.logic.object.building.Building;
 import com.av.game.logic.object.item.Item;
 import com.av.game.logic.object.item.Refuel;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.LinkedList;
 
@@ -44,19 +48,18 @@ public class GameRenderer implements ObjectObserver {
             renderable.render(stateTime, batch);
     }
 
+    public static void shapeRender(ShapeRenderer renderer) {
+        for(Renderable renderable : instance.renderables)
+            renderable.shapeRender(renderer);
+    }
+
     @Override
     public void objectCreated(GameObject objectCreated) {
-        boolean isItem = false;
-        for(Class<?> c : objectCreated.getClass().getInterfaces()) {
-            if(c.getSimpleName().equals(Item.class.getSimpleName())) {
-                isItem = true;
-                break;
-            }
-        }
-        if(isItem) {
-            if(objectCreated.getClass().getSimpleName().equals(Refuel.class.getSimpleName()))
-                addRenderable(new ObjectSprite(objectCreated, "gasoline.png"));
-        }
+        Gdx.app.log(GameRenderer.class.getSimpleName(), "Object added");
+        if(objectCreated.getClass().getSimpleName().equals(Refuel.class.getSimpleName()))
+            addRenderable(new ObjectSprite(objectCreated, "gasoline.png"));
+        else if(objectCreated.getClass().getSimpleName().equals(Building.class.getSimpleName()))
+            addRenderable(new ObjectSprite(objectCreated, "building.png"));
     }
 
     @Override

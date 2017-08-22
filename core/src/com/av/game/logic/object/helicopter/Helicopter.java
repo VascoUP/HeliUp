@@ -22,7 +22,7 @@ public class Helicopter extends PhysicsObject {
     private HeliFuel heliFuel;
 
     public Helicopter(Vector2 position) {
-        super(position, new Polygon(new float[] {1,12,4,43,51,49,78,59,93,34,85,16,104,12,104,10,12,0}));
+        super(position, new Polygon(new float[] {1,37,4,6,51,0,78,0,93,15,85,33,104,37,104,39,12,49}));
         CollisionObserver.addCollisionObject(this);
         velocity_x = 5f;
         currState = HeliState.DOWN;
@@ -76,7 +76,6 @@ public class Helicopter extends PhysicsObject {
     public void update() {
         if(currState == HeliState.UP) {
             heliFuel.calcFuel();
-            Gdx.app.log(TAG, heliFuel.getFuel() + "");
             if (heliFuel.getFuel() <= 0)
                 resetForce();
         }

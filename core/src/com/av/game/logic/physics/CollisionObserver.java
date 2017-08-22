@@ -1,6 +1,7 @@
 package com.av.game.logic.physics;
 
 import com.av.game.logic.object.GameObject;
+import com.av.game.logic.throwable.OccupiedPositionError;
 
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -40,8 +41,12 @@ public class CollisionObserver {
         instance.collisions_to_remove.add(collision_object);
     }
 
-    public static void addCollidable(Collidable collidable) {
+    public static boolean addCollidable(Collidable collidable) throws OccupiedPositionError {
+        for(Collidable comp : instance.collidables)
+            if(collidable.isColliding((GameObject)comp))
+                throw new OccupiedPositionError((GameObject)collidable);
         instance.collidables.add(collidable);
+        return true;
     }
 
     public static void removeCollidable(Collidable collidable) {
@@ -58,8 +63,11 @@ public class CollisionObserver {
         while(!collidables_to_remove.isEmpty())
             collidables.remove(collidables_to_remove.remove());
         for(GameObject collision_object : collision_objects)
-            for(Collidable collidable : collidables)
-                if(collidable.isColliding(collision_object))
+            for(Collidable collidable : collidables) {
+                if (collidable.isColliding(collision_object))
                     collidable.onCollision(collision_object);
+                else
+                    collidable.isOutOfBounds();
+            }
     }
 }
