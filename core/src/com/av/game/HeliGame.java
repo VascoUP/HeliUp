@@ -6,7 +6,9 @@ import com.av.game.graphics.ObjectRender;
 import com.av.game.gui.GameUI;
 import com.av.game.input.InputHandler;
 import com.av.game.input.InputObserver;
+import com.av.game.input.MenuHandler;
 import com.av.game.logic.Game;
+import com.av.game.logic.object.ObjectsNotifier;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -17,6 +19,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class HeliGame extends ApplicationAdapter {
 	private static final String TAG = "HeliHandler";
+
+	private enum STATE {DEATHMENU, GAME};
+	private STATE state = STATE.GAME;
 
 	public static float VIEW_WIDTH;
 	public static final float VIEW_HEIGHT = 780f;
@@ -29,6 +34,8 @@ public class HeliGame extends ApplicationAdapter {
 
 	private float stateTime = 0f;
 
+    private MenuHandler handler;
+
 	public HeliGame(InputHandler[] handlers) {
 		super();
 		InputObserver.createInstance();
@@ -39,6 +46,8 @@ public class HeliGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		VIEW_WIDTH = VIEW_HEIGHT * (Gdx.graphics.getWidth() / (float)Gdx.graphics.getHeight());
+
+        handler = new MenuHandler(this);
 
 		Game.createInstance();
 		GameRenderer.createInstance();
@@ -64,7 +73,17 @@ public class HeliGame extends ApplicationAdapter {
 		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
 		helicopter.setRotation(-10f);
 		GameRenderer.addRenderable(helicopter);
+        ObjectsNotifier.addObserver(GameRenderer.getInstance());
 	}
+
+	public void toMenu() {
+		state = STATE.DEATHMENU;
+	}
+
+	public void toGame() {
+        state = STATE.GAME;
+        restart();
+    }
 
 	@Override
 	public void render () {
@@ -81,13 +100,15 @@ public class HeliGame extends ApplicationAdapter {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
-		InputObserver.getInstance().handleInput();
-
-		Game.getGame().update(Gdx.graphics.getDeltaTime() );
-		if(Game.getGame().isGameOver()) {
-			restart();
-			return;
-		}
+		if(state == STATE.GAME) {
+            InputObserver.getInstance().handleInput();
+			Game.getGame().update(Gdx.graphics.getDeltaTime());
+			if (Game.getGame().isGameOver()) {
+                toMenu();
+			}
+		} else {
+            handler.handleInput();
+        }
 
 		stateTime += Gdx.graphics.getDeltaTime();
 
@@ -96,7 +117,7 @@ public class HeliGame extends ApplicationAdapter {
         ui.render(batch);
 		batch.end();
 
-        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.setColor(Color.PURPLE);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         GameRenderer.shapeRender(shapeRenderer);
         shapeRenderer.end();

@@ -10,12 +10,23 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Building extends CollidableObject {
     public Building(Vector2 position) throws OccupiedPositionError {
-        super(position, new Polygon(new float[]{0, 0, 0, 706, 58, 0, 62, 0, 119, 706, 119, 0}));
+        super(position, new Polygon(new float[]{0, 0, 0, 706, 58, 780, 62, 780, 119, 706, 119, 0}));
     }
 
     @Override
     public void onCollision(GameObject object) {
-        Gdx.app.log(Building.class.getSimpleName(), "Colliding with " + object.getClass().getSimpleName() + " at " + getPosition().x + " and obj at " + object.getPosition());
+        Gdx.app.log(Building.class.getSimpleName(), "Colliding at " + getPosition() + " and obj at " + object.getPosition());
+        Gdx.app.log(Building.class.getSimpleName(), "Building vertices " + arrayToString(getCollision().getTransformedVertices()));
+        Gdx.app.log(Building.class.getSimpleName(), "Helicopter vertices " + arrayToString(object.getCollision().getTransformedVertices()));
         Game.getGame().endGame();
+    }
+
+    private String arrayToString(float[] arr) {
+        StringBuilder builder = new StringBuilder();
+        for(float f : arr) {
+            builder.append(f).append("; ");
+        }
+        builder.append("\n");
+        return builder.toString();
     }
 }

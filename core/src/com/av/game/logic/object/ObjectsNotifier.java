@@ -1,6 +1,5 @@
 package com.av.game.logic.object;
 
-import com.av.game.logic.object.ObjectObserver;
 import com.badlogic.gdx.Gdx;
 
 import java.util.HashSet;

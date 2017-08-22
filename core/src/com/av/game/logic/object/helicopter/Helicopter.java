@@ -8,7 +8,6 @@ import com.av.game.logic.object.helicopter.component.fuel.CoreHeliFuel;
 import com.av.game.logic.object.helicopter.component.fuel.HeliFuel;
 import com.av.game.logic.object.helicopter.component.fuel.HeliFuelDecorator;
 import com.av.game.logic.physics.CollisionObserver;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
@@ -22,7 +21,7 @@ public class Helicopter extends PhysicsObject {
     private HeliFuel heliFuel;
 
     public Helicopter(Vector2 position) {
-        super(position, new Polygon(new float[] {1,37,4,6,51,0,78,0,93,15,85,33,104,37,104,39,12,49}));
+        super(position, new Polygon(new float[] {1,37,4,6,51,0,78,0,93,15,104,37,104,39,12,49}));
         CollisionObserver.addCollisionObject(this);
         velocity_x = 5f;
         currState = HeliState.DOWN;

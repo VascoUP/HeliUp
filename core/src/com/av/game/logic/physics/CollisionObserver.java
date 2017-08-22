@@ -54,6 +54,7 @@ public class CollisionObserver {
     }
 
     public static void clear() {
+        instance.collision_objects.clear();
         instance.collidables.clear();
     }
 

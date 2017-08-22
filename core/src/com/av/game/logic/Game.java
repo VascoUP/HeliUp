@@ -3,20 +3,14 @@ package com.av.game.logic;
 import com.av.game.HeliGame;
 import com.av.game.logic.object.CollidableObject;
 import com.av.game.logic.object.GameObject;
-import com.av.game.logic.object.ObjectObserver;
 import com.av.game.logic.object.ObjectsNotifier;
 import com.av.game.logic.object.helicopter.Helicopter;
 import com.av.game.logic.object.item.Item;
-import com.av.game.logic.object.item.Refuel;
-import com.av.game.logic.physics.Collidable;
 import com.av.game.logic.physics.CollisionObserver;
 import com.av.game.logic.physics.Physics;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.LinkedList;
-import java.util.Random;
 
 public class Game {
     private static Game instance;
@@ -49,13 +43,13 @@ public class Game {
     public void create() {
         Physics.clear();
         CollisionObserver.clear();
-
-        endGame = false;
+        ObjectsNotifier.createInstance();
         items.clear();
         buildings.clear();
-        helicopter = new Helicopter(new Vector2(200f, HeliGame.VIEW_HEIGHT / 2f));
-
         objectSpawn = new ObjectSpawn(this);
+
+        endGame = false;
+        helicopter = new Helicopter(new Vector2(200f, HeliGame.VIEW_HEIGHT / 2f));
     }
 
     public Helicopter getHelicopter() {

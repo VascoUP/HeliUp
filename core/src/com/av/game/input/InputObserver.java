@@ -19,6 +19,10 @@ public class InputObserver implements InputHandler {
         instance.handlers.add(handler);
     }
 
+    public static void clear() {
+        instance.handlers.clear();
+    }
+
     public static InputObserver getInstance() {
         return instance;
     }
