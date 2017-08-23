@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 public class MenuHandler implements InputHandler {
     private static final String TAG = "HeliHandler";
 
+    private boolean realeased = false;
     private boolean touched = false;
 
     private HeliGame game;
@@ -17,10 +18,12 @@ public class MenuHandler implements InputHandler {
 
     @Override
     public void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            if(!touched)
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isTouched()) {
+            if(realeased && !touched)
                 touched = true;
-        } else if (touched){
+        } else if (!realeased) {
+            realeased = true;
+        } else if (touched) {
             touched = false;
             game.toGame();
         }
