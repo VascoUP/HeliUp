@@ -1,8 +1,6 @@
 package com.av.game;
 
 import com.av.game.graphics.GameRenderer;
-import com.av.game.graphics.ObjectAnimation;
-import com.av.game.graphics.ObjectRender;
 import com.av.game.gui.GameUI;
 import com.av.game.input.InputHandler;
 import com.av.game.input.InputObserver;
@@ -50,17 +48,15 @@ public class HeliGame extends ApplicationAdapter {
         handler = new MenuHandler(this);
 
 		Game.createInstance();
-		GameRenderer.createInstance();
 		Game.getGame().create();
+		GameRenderer.createInstance();
 
         ui = new GameUI(Game.getGame());
 
 		shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
 
-		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.02f);
-		helicopter.setRotation(-10f);
-		GameRenderer.addRenderable(helicopter);
+		GameRenderer.getInstance().objectCreated(Game.getGame().getHelicopter());
 
 		cam = new OrthographicCamera(VIEW_WIDTH, VIEW_HEIGHT);
 		cam.position.set(VIEW_WIDTH / 2f, VIEW_HEIGHT / 2f, 0);
@@ -70,9 +66,7 @@ public class HeliGame extends ApplicationAdapter {
 	private void restart() {
 		Game.getGame().create();
 		GameRenderer.clear();
-		ObjectRender helicopter = new ObjectAnimation(Game.getGame().getHelicopter(), "Helicopter.png", 2, 4, 0.08f);
-		helicopter.setRotation(-10f);
-		GameRenderer.addRenderable(helicopter);
+		GameRenderer.getInstance().objectCreated(Game.getGame().getHelicopter());
         ObjectsNotifier.addObserver(GameRenderer.getInstance());
 	}
 

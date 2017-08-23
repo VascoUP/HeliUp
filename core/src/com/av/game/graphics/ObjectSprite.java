@@ -1,19 +1,16 @@
 package com.av.game.graphics;
 
 import com.av.game.logic.object.GameObject;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class ObjectSprite extends ObjectRender {
     private Sprite sprite;
 
-    public ObjectSprite(GameObject gameObject, String path) {
+    public ObjectSprite(GameObject gameObject, Texture texture) {
         super(gameObject);
-        sprite = new Sprite(new Texture(Gdx.files.internal(path)));
+        sprite = new Sprite(texture);
     }
 
     @Override
@@ -22,6 +19,6 @@ public class ObjectSprite extends ObjectRender {
                 sprite.getRegionWidth() / 2f, sprite.getRegionHeight() / 2f,
                 sprite.getRegionWidth(), sprite.getRegionHeight(),
                 scale_x, scale_y,
-                rotation);
+                gameObject.getRotation());
     }
 }

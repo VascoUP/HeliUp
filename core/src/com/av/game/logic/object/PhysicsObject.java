@@ -14,6 +14,10 @@ public class PhysicsObject extends GameObject {
         Physics.addObject(this);
     }
 
+    public PhysicsObject(Vector2 position, float rotation, Polygon polygon) {
+        super(position, rotation, polygon);
+        Physics.addObject(this);
+    }
 
     public float getAcceleration_y() {
         return acceleration_y;

@@ -20,8 +20,11 @@ public class Helicopter extends PhysicsObject {
     private HeliBase heliBase;
     private HeliFuel heliFuel;
 
+    private static final float max_rotation = 0f;
+    private static final float min_rotation = -30f;
+
     public Helicopter(Vector2 position) {
-        super(position, new Polygon(new float[] {1,37,4,6,51,0,78,0,93,15,104,37,104,39,12,49}));
+        super(position, -10, new Polygon(new float[] {1,37,4,6,51,0,78,0,93,15,104,37,104,39,12,49}));
         CollisionObserver.addCollisionObject(this);
         velocity_x = 5f;
         currState = HeliState.DOWN;
@@ -75,8 +78,42 @@ public class Helicopter extends PhysicsObject {
     public void update() {
         if(currState == HeliState.UP) {
             heliFuel.calcFuel();
+            this.setRotation(this.getRotation() + (max_rotation - this.getRotation()) / 20f);
             if (heliFuel.getFuel() <= 0)
                 resetForce();
+        } else {
+            this.setRotation(this.getRotation() - (this.getRotation() - min_rotation) / 20f);
         }
+    }
+
+
+    @Override
+    public float getAcceleration_y() {
+        return super.getAcceleration_y();
+    }
+
+    @Override
+    public void setAcceleration_y(float acceleration_y) {
+        super.setAcceleration_y(acceleration_y);
+    }
+
+    @Override
+    public float getVelocity_y() {
+        return super.getVelocity_y();
+    }
+
+    @Override
+    public void setVelocity_y(float velocity_y) {
+        super.setVelocity_y(velocity_y);
+    }
+
+    @Override
+    public float getVelocity_x() {
+        return super.getVelocity_x();
+    }
+
+    @Override
+    public void setVelocity_x(float velocity_x) {
+        super.setVelocity_x(velocity_x);
     }
 }
