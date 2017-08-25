@@ -12,8 +12,9 @@ import com.badlogic.gdx.Gdx;
 public class HeliGame extends ApplicationAdapter {
 	private static final String TAG = "HeliHandler";
 
-	private enum STATE {DEATHMENU, GAME};
-	private STATE state = STATE.GAME;
+	private enum STATE {DEATHMENU, GAME}
+
+    private STATE state = STATE.GAME;
 
 	public static float VIEW_WIDTH;
 	public static final float VIEW_HEIGHT = 780f;

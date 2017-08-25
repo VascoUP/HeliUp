@@ -82,36 +82,36 @@ public class GameRenderer implements ObjectObserver {
         instance.z1.clear();
     }
 
-    public void addZ0(Renderable renderable) {
+    void addZ0(Renderable renderable) {
         instance.z0.add(renderable);
     }
 
-    public void addZ1(Renderable renderable) {
+    void addZ1(Renderable renderable) {
         instance.z1.add(renderable);
     }
 
-    public void addZ2(Renderable renderable) {
+    void addZ2(Renderable renderable) {
         instance.z2.add(renderable);
     }
 
-    public void rmZ0(Renderable renderable) {
+    void rmZ0(Renderable renderable) {
         instance.rmz0.remove(renderable);
     }
 
-    public void rmZ1(Renderable renderable) {
+    void rmZ1(Renderable renderable) {
         instance.rmz1.add(renderable);
     }
 
-    public void rmZ2(Renderable renderable) {
+    void rmZ2(Renderable renderable) {
         instance.rmz2.add(renderable);
     }
 
 
-    public static Vector3 getCamPosition() {
+    static Vector3 getCamPosition() {
         return instance.cam.position;
     }
 
-    public static Texture getCloudTexture() {
+    static Texture getCloudTexture() {
         return instance.cloud_texture;
     }
 

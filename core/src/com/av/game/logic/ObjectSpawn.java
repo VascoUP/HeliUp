@@ -16,7 +16,7 @@ import java.util.Random;
 public class ObjectSpawn {
     private static String TAG = "ObjectSpawn";
 
-    private enum TYPE {REFUEL, RANDOM_ITEM, BUILDING};
+    private enum TYPE {REFUEL, RANDOM_ITEM, BUILDING}
 
     private static final float FUEL_SPAWN_TIME = 3f;
     private static final float ITEM_SPAWN_TIME = 15.5f;

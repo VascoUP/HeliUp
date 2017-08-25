@@ -14,7 +14,8 @@ import com.badlogic.gdx.math.Vector2;
 public class Helicopter extends PhysicsObject {
     private static String TAG = "Helicopter";
 
-    private enum HeliState {UP, DOWN};
+    private enum HeliState {UP, DOWN}
+
     private HeliState currState;
 
     private HeliBase heliBase;
