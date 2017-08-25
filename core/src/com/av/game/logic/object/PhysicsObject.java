@@ -19,27 +19,27 @@ public class PhysicsObject extends GameObject {
         Physics.addObject(this);
     }
 
-    public float getAcceleration_y() {
+    public float getAccelerationY() {
         return acceleration_y;
     }
 
-    public void setAcceleration_y(float acceleration_y) {
+    public void setAccelerationY(float acceleration_y) {
         this.acceleration_y = acceleration_y;
     }
 
-    public float getVelocity_y() {
+    public float getVelocityY() {
         return velocity_y;
     }
 
-    public void setVelocity_y(float velocity_y) {
+    public void setVelocityY(float velocity_y) {
         this.velocity_y = velocity_y;
     }
 
-    public float getVelocity_x() {
+    public float getVelocityX() {
         return velocity_x;
     }
 
-    public void setVelocity_x(float velocity_x) {
+    public void setVelocityX(float velocity_x) {
         this.velocity_x = velocity_x;
     }
 

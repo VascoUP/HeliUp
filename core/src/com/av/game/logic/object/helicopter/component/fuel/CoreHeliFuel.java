@@ -6,8 +6,8 @@ public class CoreHeliFuel implements HeliFuel {
     private int currFuel;
 
     public CoreHeliFuel() {
-        capacity = 200;
-        currFuel = 200;
+        capacity = 120;
+        currFuel = 120;
         fuelPerFrame = 1;
     }
 

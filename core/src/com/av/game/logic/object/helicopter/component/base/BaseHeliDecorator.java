@@ -7,9 +7,4 @@ public abstract class BaseHeliDecorator implements HeliBase {
     public BaseHeliDecorator(HeliBase heliBase) {
         this.heliBase = heliBase;
     }
-
-    @Override
-    public void calcVel() {
-        heliBase.calcVel();
-    }
 }

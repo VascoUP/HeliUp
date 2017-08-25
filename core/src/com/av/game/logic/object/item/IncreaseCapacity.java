@@ -18,7 +18,7 @@ public class IncreaseCapacity extends CollidableObject implements Item {
     @Override
     public void takeEffect() {
         Helicopter helicopter = Game.getGame().getHelicopter();
-        helicopter.setHeliFuel(new IncreaseFuelCapacity(helicopter.getHeliFuel()));
+        helicopter.decorateFuel(new IncreaseFuelCapacity(helicopter.getHeliFuel()));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.av.game.logic.object.helicopter.component.base;
 
 public interface HeliBase {
-    void calcVel();
+    float getAccelerationY();
+    float getVelocityX();
+    void setVelocityX(float velocity_x);
 }

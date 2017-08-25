@@ -27,10 +27,10 @@ public class Helicopter extends PhysicsObject {
     public Helicopter(Vector2 position) {
         super(position, -10, new Polygon(new float[] {1,37,4,6,51,0,78,0,93,15,104,37,104,39,12,49}));
         CollisionObserver.addCollisionObject(this);
-        velocity_x = 5f;
         currState = HeliState.DOWN;
         heliBase = new CoreHeliBase();
         heliFuel = new CoreHeliFuel();
+        velocity_x = heliBase.getVelocityX();
     }
 
     public HeliBase getHeliBase() {
@@ -40,15 +40,6 @@ public class Helicopter extends PhysicsObject {
     public HeliFuel getHeliFuel() {
         return heliFuel;
     }
-
-    public void setHeliBase(HeliBase heliBase) {
-        this.heliBase = heliBase;
-    }
-
-    public void setHeliFuel(HeliFuel heliFuel) {
-        this.heliFuel = heliFuel;
-    }
-
 
     public void decorateBase(BaseHeliDecorator decorator) {
         heliBase = decorator;
@@ -64,7 +55,7 @@ public class Helicopter extends PhysicsObject {
             return;
         if(heliFuel.getFuel() > 0) {
             currState = HeliState.UP;
-            setAcceleration_y(1f);
+            setAccelerationY(heliBase.getAccelerationY());
         }
     }
 
@@ -72,7 +63,7 @@ public class Helicopter extends PhysicsObject {
         if(currState == HeliState.DOWN)
             return;
         currState = HeliState.DOWN;
-        setAcceleration_y(0);
+        setAccelerationY(0);
     }
 
 
@@ -87,34 +78,13 @@ public class Helicopter extends PhysicsObject {
         }
     }
 
-
     @Override
-    public float getAcceleration_y() {
-        return super.getAcceleration_y();
+    public float getVelocityX() {
+        return heliBase.getVelocityX();
     }
 
     @Override
-    public void setAcceleration_y(float acceleration_y) {
-        super.setAcceleration_y(acceleration_y);
-    }
-
-    @Override
-    public float getVelocity_y() {
-        return super.getVelocity_y();
-    }
-
-    @Override
-    public void setVelocity_y(float velocity_y) {
-        super.setVelocity_y(velocity_y);
-    }
-
-    @Override
-    public float getVelocity_x() {
-        return super.getVelocity_x();
-    }
-
-    @Override
-    public void setVelocity_x(float velocity_x) {
-        super.setVelocity_x(velocity_x);
+    public void setVelocityX(float velocity_x) {
+        heliBase.setVelocityX(velocity_x);
     }
 }

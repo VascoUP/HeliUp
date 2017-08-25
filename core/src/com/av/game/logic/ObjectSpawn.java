@@ -35,7 +35,7 @@ public class ObjectSpawn {
 
     public ObjectSpawn(Game game) {
         FUEL_MAX_HEIGHT = HeliGame.VIEW_HEIGHT - 270f;
-        BUILDING_MAX_HEIGHT = HeliGame.VIEW_HEIGHT - 220f;
+        BUILDING_MAX_HEIGHT = HeliGame.VIEW_HEIGHT - 250f;
         FUEL_MIN_HEIGHT = 70f;
         BUILDING_MIN_HEIGHT = -660f;
         this.game = game;

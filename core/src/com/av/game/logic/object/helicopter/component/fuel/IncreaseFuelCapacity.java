@@ -1,7 +1,7 @@
 package com.av.game.logic.object.helicopter.component.fuel;
 
 public class IncreaseFuelCapacity extends HeliFuelDecorator {
-    private static final int fuelCapacity = 50;
+    private static final int fuelCapacity = 40;
 
     public IncreaseFuelCapacity(HeliFuel heliFuel) {
         super(heliFuel);
