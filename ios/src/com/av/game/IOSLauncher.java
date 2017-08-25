@@ -1,16 +1,19 @@
 package com.av.game;
 
-import org.robovm.apple.foundation.NSAutoreleasePool;
-import org.robovm.apple.uikit.UIApplication;
-
+import com.av.game.input.InputHandler;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
+
+import org.robovm.apple.foundation.NSAutoreleasePool;
+import org.robovm.apple.uikit.UIApplication;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
+        InputHandler[] handlers = new InputHandler[1];
+        handlers[0] = new HeliHandler();
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new HeliGame(), config);
+        return new IOSApplication(new HeliGame(handlers), config);
     }
 
     public static void main(String[] argv) {

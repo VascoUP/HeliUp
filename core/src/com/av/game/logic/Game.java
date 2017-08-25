@@ -56,7 +56,7 @@ public class Game {
         return helicopter;
     }
 
-    public void addItem(Item item) {
+    void addItem(Item item) {
         items.add(item);
         addObject((GameObject)item);
     }
@@ -66,7 +66,7 @@ public class Game {
         rmObject((GameObject)item);
     }
 
-    public void addBuilding(GameObject building) {
+    void addBuilding(GameObject building) {
         buildings.add(building);
         addObject(building);
     }
@@ -100,7 +100,7 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        return endGame || (helicopter.getPosition().y < 0 || helicopter.getPosition().y > HeliGame.VIEW_HEIGHT);
+        return endGame || (helicopter.getPosition().y < 0 || helicopter.getPosition().y + helicopter.getCollision().getBoundingRectangle().getHeight() > HeliGame.VIEW_HEIGHT);
     }
 
     public void endGame() {
