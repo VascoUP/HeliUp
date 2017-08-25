@@ -8,6 +8,7 @@ import com.av.game.logic.object.ObjectObserver;
 import com.av.game.logic.object.ObjectsNotifier;
 import com.av.game.logic.object.building.Building;
 import com.av.game.logic.object.helicopter.Helicopter;
+import com.av.game.logic.object.item.IncreaseCapacity;
 import com.av.game.logic.object.item.Refuel;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -30,6 +31,7 @@ public class GameRenderer implements ObjectObserver {
     private final Texture helicopter_texture;
     private final Texture refuel_texture;
     private final Texture building_texture;
+    private final Texture item_texture;
     private final Texture cloud_texture;
 
     private LinkedList<Renderable> z0;
@@ -48,6 +50,7 @@ public class GameRenderer implements ObjectObserver {
         helicopter_texture = new Texture(Gdx.files.internal("helicopter.png"));
         refuel_texture = new Texture(Gdx.files.internal("gasoline.png"));
         building_texture = new Texture(Gdx.files.internal("building.png"));
+        item_texture = new Texture(Gdx.files.internal("item.png"));
         cloud_texture = new Texture(Gdx.files.internal("cloud.png"));
 
         shapeRenderer = new ShapeRenderer();
@@ -167,11 +170,12 @@ public class GameRenderer implements ObjectObserver {
 
     @Override
     public void objectCreated(GameObject objectCreated) {
-        Gdx.app.log(GameRenderer.class.getSimpleName(), "Object added");
         if(objectCreated.getClass().getSimpleName().equals(Refuel.class.getSimpleName()))
             addZ1(new ObjectSprite(objectCreated, refuel_texture));
         else if(objectCreated.getClass().getSimpleName().equals(Building.class.getSimpleName()))
             addZ1(new ObjectSprite(objectCreated, building_texture));
+        else if(objectCreated.getClass().getSimpleName().equals(IncreaseCapacity.class.getSimpleName()))
+            addZ1(new ObjectSprite(objectCreated, item_texture));
         else if(objectCreated.getClass().getSimpleName().equals(Helicopter.class.getSimpleName()))
             addZ1(new ObjectAnimation(objectCreated, helicopter_texture, 2, 4, 0.04f));
     }

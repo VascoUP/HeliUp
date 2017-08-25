@@ -1,7 +1,5 @@
 package com.av.game.logic.object;
 
-import com.badlogic.gdx.Gdx;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,13 +31,11 @@ public class ObjectsNotifier {
     }
 
     public void notifyCreate(GameObject objectCreated) {
-        Gdx.app.log(TAG, "Object created " + objectCreated + " n listeners " + observers.size());
         for(ObjectObserver observer : observers)
             observer.objectCreated(objectCreated);
     }
 
     public void notifyDestroy(GameObject objectDestroyed) {
-        Gdx.app.log(TAG, "Object destroyed " + objectDestroyed);
         for(ObjectObserver observer : observers)
             observer.objectDestroyed(objectDestroyed);
     }
