@@ -9,7 +9,7 @@ public class Physics {
     private static String TAG = "Physics";
     public static Physics instance;
 
-    public static final float GRAVITY_ACCELERATION = 0.5f;
+    public static final float GRAVITY_ACCELERATION = 0.8f;
 
     private LinkedList<PhysicsObject> objects;
 

@@ -39,10 +39,6 @@ public class PhysicsObject extends GameObject {
         return velocity_x;
     }
 
-    public void setVelocityX(float velocity_x) {
-        this.velocity_x = velocity_x;
-    }
-
     public void destroy() {
         Physics.rmObject(this);
     }

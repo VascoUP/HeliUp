@@ -92,10 +92,11 @@ public class Game {
     }
 
     public void update(float deltaTime) {
+        float original_x = helicopter.getPosition().x;
         Physics.getInstance().update();
         CollisionObserver.getInstance().checkCollisions();
         if(endGame) return;
-        objectSpawn.update(deltaTime);
+        objectSpawn.update(helicopter.getPosition().x - original_x);
         helicopter.update();
     }
 

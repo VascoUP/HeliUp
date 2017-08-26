@@ -82,9 +82,4 @@ public class Helicopter extends PhysicsObject {
     public float getVelocityX() {
         return heliBase.getVelocityX();
     }
-
-    @Override
-    public void setVelocityX(float velocity_x) {
-        heliBase.setVelocityX(velocity_x);
-    }
 }

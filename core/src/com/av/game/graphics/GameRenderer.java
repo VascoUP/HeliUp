@@ -9,6 +9,7 @@ import com.av.game.logic.object.ObjectsNotifier;
 import com.av.game.logic.object.building.Building;
 import com.av.game.logic.object.helicopter.Helicopter;
 import com.av.game.logic.object.item.IncreaseCapacity;
+import com.av.game.logic.object.item.IncreaseVelocity;
 import com.av.game.logic.object.item.Refuel;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -36,9 +37,11 @@ public class GameRenderer implements ObjectObserver {
 
     private LinkedList<Renderable> z0;
     private LinkedList<Renderable> z1;
+    private LinkedList<BuildingSprite> buildings;
     private LinkedList<Renderable> z2;
     private LinkedList<Renderable> rmz0;
     private LinkedList<Renderable> rmz1;
+    private LinkedList<BuildingSprite> rmbuildings;
     private LinkedList<Renderable> rmz2;
 
     private GameUI ui;
@@ -61,9 +64,11 @@ public class GameRenderer implements ObjectObserver {
 
         z0 = new LinkedList<Renderable>();
         z1 = new LinkedList<Renderable>();
+        buildings = new LinkedList<BuildingSprite>();
         z2 = new LinkedList<Renderable>();
         rmz0 = new LinkedList<Renderable>();
         rmz1 = new LinkedList<Renderable>();
+        rmbuildings = new LinkedList<BuildingSprite>();
         rmz2 = new LinkedList<Renderable>();
         ui = new GameUI(Game.getGame());
         ObjectsNotifier.addObserver(this);
@@ -79,7 +84,14 @@ public class GameRenderer implements ObjectObserver {
     }
 
     public static void clear() {
+        instance.z0.clear();
         instance.z1.clear();
+        instance.buildings.clear();
+        instance.z2.clear();
+        instance.rmz0.clear();
+        instance.rmz1.clear();
+        instance.rmbuildings.clear();
+        instance.rmz2.clear();
     }
 
     void addZ0(Renderable renderable) {
@@ -90,12 +102,20 @@ public class GameRenderer implements ObjectObserver {
         instance.z1.add(renderable);
     }
 
+    void addBuildings(BuildingSprite renderable) {
+        instance.buildings.add(renderable);
+    }
+
     void addZ2(Renderable renderable) {
         instance.z2.add(renderable);
     }
 
     void rmZ0(Renderable renderable) {
         instance.rmz0.remove(renderable);
+    }
+
+    void rmBuildings(BuildingSprite renderable) {
+        instance.rmbuildings.add(renderable);
     }
 
     void rmZ1(Renderable renderable) {
@@ -143,6 +163,8 @@ public class GameRenderer implements ObjectObserver {
             z0.remove(rm);
         for(Renderable rm : instance.rmz1)
             z1.remove(rm);
+        for(BuildingSprite rm : instance.rmbuildings)
+            buildings.remove(rm);
         for(Renderable rm : instance.rmz2)
             z2.remove(rm);
     }
@@ -150,6 +172,8 @@ public class GameRenderer implements ObjectObserver {
     private void spriteRender(float stateTime) {
         batch.begin();
         for(Renderable renderable : instance.z0)
+            renderable.render(stateTime, batch);
+        for(BuildingSprite renderable : instance.buildings)
             renderable.render(stateTime, batch);
         for(Renderable renderable : instance.z1)
             renderable.render(stateTime, batch);
@@ -163,6 +187,8 @@ public class GameRenderer implements ObjectObserver {
     private void shapeRender() {
         shapeRenderer.setColor(Color.PURPLE);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        for(BuildingSprite renderable : instance.buildings)
+            renderable.shapeRender(shapeRenderer);
         for(Renderable renderable : instance.z1)
             renderable.shapeRender(shapeRenderer);
         shapeRenderer.end();
@@ -173,8 +199,10 @@ public class GameRenderer implements ObjectObserver {
         if(objectCreated.getClass().getSimpleName().equals(Refuel.class.getSimpleName()))
             addZ1(new ObjectSprite(objectCreated, refuel_texture));
         else if(objectCreated.getClass().getSimpleName().equals(Building.class.getSimpleName()))
-            addZ1(new ObjectSprite(objectCreated, building_texture));
+            addBuildings(new BuildingSprite((Building)objectCreated, building_texture));
         else if(objectCreated.getClass().getSimpleName().equals(IncreaseCapacity.class.getSimpleName()))
+            addZ1(new ObjectSprite(objectCreated, item_texture));
+        else if(objectCreated.getClass().getSimpleName().equals(IncreaseVelocity.class.getSimpleName()))
             addZ1(new ObjectSprite(objectCreated, item_texture));
         else if(objectCreated.getClass().getSimpleName().equals(Helicopter.class.getSimpleName()))
             addZ1(new ObjectAnimation(objectCreated, helicopter_texture, 2, 4, 0.04f));
@@ -184,7 +212,10 @@ public class GameRenderer implements ObjectObserver {
     public void objectDestroyed(GameObject objectDestroyed) {
         for(Renderable renderable : z1) {
             if(((ObjectRender)renderable).getGameObject() == objectDestroyed) {
-                rmZ1(renderable);
+                if(objectDestroyed.getClass().getSimpleName().equals(Building.class.getSimpleName()))
+                    rmBuildings((BuildingSprite) renderable);
+                else
+                    rmZ1(renderable);
                 break;
             }
         }
