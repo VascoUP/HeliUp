@@ -1,6 +1,6 @@
 package com.av.game.graphics;
 
-import com.av.game.HeliGame;
+import com.av.game.screen.util.ScreenInfo;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -35,7 +35,7 @@ public class VisualObject implements Renderable {
                 sprite.getRegionWidth(), sprite.getRegionHeight(),
                 1, 1, 0);
         Vector3 cam_position = GameRenderer.getCamPosition();
-        if(position.x + sprite.getWidth() < cam_position.x - HeliGame.VIEW_WIDTH / 2f) {
+        if(position.x + sprite.getWidth() < cam_position.x - ScreenInfo.width / 2f) {
             if (is_z0)
                 GameRenderer.getInstance().rmZ0(this);
             else

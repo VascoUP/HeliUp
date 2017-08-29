@@ -1,6 +1,5 @@
 package com.av.game.logic;
 
-import com.av.game.HeliGame;
 import com.av.game.logic.object.CollidableObject;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.ObjectsNotifier;
@@ -8,6 +7,7 @@ import com.av.game.logic.object.helicopter.Helicopter;
 import com.av.game.logic.object.item.Item;
 import com.av.game.logic.physics.CollisionObserver;
 import com.av.game.logic.physics.Physics;
+import com.av.game.screen.util.ScreenInfo;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.LinkedList;
@@ -49,7 +49,7 @@ public class Game {
         objectSpawn = new ObjectSpawn(this);
 
         endGame = false;
-        helicopter = new Helicopter(new Vector2(200f, HeliGame.VIEW_HEIGHT / 2f));
+        helicopter = new Helicopter(new Vector2(200f, ScreenInfo.height / 2f));
     }
 
     public Helicopter getHelicopter() {
@@ -101,7 +101,7 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        return endGame || (helicopter.getPosition().y < 0 || helicopter.getPosition().y + helicopter.getCollision().getBoundingRectangle().getHeight() > HeliGame.VIEW_HEIGHT);
+        return endGame || (helicopter.getPosition().y < 0 || helicopter.getPosition().y + helicopter.getCollision().getBoundingRectangle().getHeight() > ScreenInfo.height);
     }
 
     public void endGame() {

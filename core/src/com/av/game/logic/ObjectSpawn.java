@@ -1,6 +1,5 @@
 package com.av.game.logic;
 
-import com.av.game.HeliGame;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.building.Building;
 import com.av.game.logic.object.helicopter.Helicopter;
@@ -9,6 +8,7 @@ import com.av.game.logic.object.item.IncreaseVelocity;
 import com.av.game.logic.object.item.Item;
 import com.av.game.logic.object.item.Refuel;
 import com.av.game.logic.throwable.OccupiedPositionError;
+import com.av.game.screen.util.ScreenInfo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
@@ -35,8 +35,8 @@ public class ObjectSpawn {
     private Random random;
 
     ObjectSpawn(Game game) {
-        FUEL_MAX_HEIGHT = HeliGame.VIEW_HEIGHT - 290f;
-        BUILDING_MAX_HEIGHT = HeliGame.VIEW_HEIGHT - 270f;
+        FUEL_MAX_HEIGHT = ScreenInfo.height - 290f;
+        BUILDING_MAX_HEIGHT = ScreenInfo.height - 270f;
         FUEL_MIN_HEIGHT = 70f;
         BUILDING_MIN_HEIGHT = -660f;
         this.game = game;
@@ -65,9 +65,9 @@ public class ObjectSpawn {
         Helicopter helicopter = game.getHelicopter();
         switch (random.nextInt(2)) {
             case 0:
-                return new IncreaseVelocity(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH - 200f, random.nextFloat() * max_height + min_height));
+                return new IncreaseVelocity(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, random.nextFloat() * max_height + min_height));
             case 1:
-                return new IncreaseCapacity(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH - 200f, random.nextFloat() * max_height + min_height));
+                return new IncreaseCapacity(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, random.nextFloat() * max_height + min_height));
         }
         return null;
     }
@@ -83,9 +83,9 @@ public class ObjectSpawn {
 
             try {
                 if(type_spawn == TYPE.BUILDING)
-                    object = new Building(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH - 200f, random.nextFloat() * max_height + min));
+                    object = new Building(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, random.nextFloat() * max_height + min));
                 else if(type_spawn == TYPE.REFUEL)
-                    object = new Refuel(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH - 200f, random.nextFloat() * max + min_height));
+                    object = new Refuel(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, random.nextFloat() * max + min_height));
                 else
                     object = (GameObject)randomItem(max_height, min_height);
             } catch (OccupiedPositionError occupiedPositionError) {
@@ -103,9 +103,9 @@ public class ObjectSpawn {
 
                 try {
                     if(type_spawn == TYPE.BUILDING)
-                        object = new Building(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH - 200f, random.nextFloat() * max_height + min));
+                        object = new Building(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, random.nextFloat() * max_height + min));
                     else if(type_spawn == TYPE.REFUEL)
-                        object = new Refuel(new Vector2(helicopter.getPosition().x + HeliGame.VIEW_WIDTH - 200f, random.nextFloat() * max + min_height));
+                        object = new Refuel(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, random.nextFloat() * max + min_height));
                     else
                         object = (GameObject)randomItem(max_height, min_height);
                 } catch (OccupiedPositionError occupiedPositionError2) {

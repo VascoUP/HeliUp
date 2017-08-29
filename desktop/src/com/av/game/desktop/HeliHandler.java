@@ -5,10 +5,10 @@ import com.av.game.logic.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-public class HeliHandler implements InputHandler {
+class HeliHandler implements InputHandler {
     private static final String TAG = "HeliHandler";
 
-    public HeliHandler() {}
+    HeliHandler() {}
 
     @Override
     public void handleInput() {

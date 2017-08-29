@@ -1,6 +1,5 @@
 package com.av.game.graphics;
 
-import com.av.game.HeliGame;
 import com.av.game.gui.GameUI;
 import com.av.game.logic.Game;
 import com.av.game.logic.object.GameObject;
@@ -11,6 +10,7 @@ import com.av.game.logic.object.helicopter.Helicopter;
 import com.av.game.logic.object.item.IncreaseCapacity;
 import com.av.game.logic.object.item.IncreaseVelocity;
 import com.av.game.logic.object.item.Refuel;
+import com.av.game.screen.util.ScreenInfo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -58,8 +58,8 @@ public class GameRenderer implements ObjectObserver {
 
         shape_renderer = new ShapeRenderer();
         batch = new SpriteBatch();
-        cam = new OrthographicCamera(HeliGame.VIEW_WIDTH, HeliGame.VIEW_HEIGHT);
-        cam.position.set(HeliGame.VIEW_WIDTH / 2f, HeliGame.VIEW_HEIGHT / 2f, 0);
+        cam = new OrthographicCamera(ScreenInfo.width, ScreenInfo.height);
+        cam.position.set(ScreenInfo.width / 2f, ScreenInfo.height / 2f, 0);
         cam.update();
 
         z0 = new LinkedList<Renderable>();
