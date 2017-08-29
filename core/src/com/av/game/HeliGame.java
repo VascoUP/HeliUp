@@ -1,7 +1,7 @@
 package com.av.game;
 
 import com.av.game.graphics.GameRenderer;
-import com.av.game.input.InputHandler;
+import com.av.game.input.Input;
 import com.av.game.input.InputObserver;
 import com.av.game.input.MenuHandler;
 import com.av.game.logic.Game;
@@ -19,20 +19,17 @@ public class HeliGame extends ApplicationAdapter {
 	public static float VIEW_WIDTH;
 	public static final float VIEW_HEIGHT = 780f;
 
-    private MenuHandler handler;
-
-	public HeliGame(InputHandler[] handlers) {
+	public HeliGame() {
 		super();
 		InputObserver.createInstance();
-		for(InputHandler handler : handlers)
-			InputObserver.addInputListenner(handler);
+		InputObserver.addInputListenner(Input.game_handler);
 	}
 	
 	@Override
 	public void create () {
 		VIEW_WIDTH = VIEW_HEIGHT * (Gdx.graphics.getWidth() / (float)Gdx.graphics.getHeight());
 
-        handler = new MenuHandler(this);
+		Input.end_menu_handler = new MenuHandler(this);
 
 		Game.createInstance();
 		Game.getGame().create();
@@ -49,27 +46,30 @@ public class HeliGame extends ApplicationAdapter {
 	}
 
 	public void toMenu() {
+		InputObserver.clear();
+		InputObserver.addInputListenner(Input.end_menu_handler);
 		state = STATE.DEATHMENU;
 	}
 
 	public void toGame() {
+		InputObserver.clear();
+		InputObserver.addInputListenner(Input.game_handler);
         state = STATE.GAME;
         restart();
     }
 
 	@Override
 	public void render () {
+		InputObserver.getInstance().handleInput();
 		if(state == STATE.GAME) {
-            InputObserver.getInstance().handleInput();
 			Game.getGame().update(Gdx.graphics.getDeltaTime());
 			if (Game.getGame().isGameOver()) {
                 toMenu();
 			}
+			GameRenderer.getInstance().render(Gdx.graphics.getDeltaTime());
 		} else {
-            handler.handleInput();
+			GameRenderer.getInstance().render(0f);
         }
-
-		GameRenderer.getInstance().render();
 	}
 	
 	@Override

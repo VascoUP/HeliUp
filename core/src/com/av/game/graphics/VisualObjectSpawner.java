@@ -32,7 +32,7 @@ public class VisualObjectSpawner {
         if(random.nextInt(200) == 1) {
             Vector3 cam_position = GameRenderer.getCamPosition();
             Vector2 obj_position = new Vector2(cam_position.x + HeliGame.VIEW_WIDTH, random.nextFloat() * MAX_HEIGHT + MIN_HEIGHT);
-            renderer.addZ0(new VisualObject(obj_position, new Vector2(40f, 0f), new Sprite(GameRenderer.getCloudTexture()), true));
+            renderer.addZ0(new VisualObject(obj_position, new Vector2(0.25f, 0f), new Sprite(GameRenderer.getCloudTexture()), true));
         }
     }
 
@@ -40,7 +40,7 @@ public class VisualObjectSpawner {
         if(random.nextInt(400) == 1) {
             Vector3 cam_position = GameRenderer.getCamPosition();
             Vector2 obj_position = new Vector2(cam_position.x + HeliGame.VIEW_WIDTH, random.nextFloat() * MAX_HEIGHT + MIN_HEIGHT);
-            renderer.addZ2(new VisualObject(obj_position, new Vector2(-80f, 0f), new Sprite(GameRenderer.getCloudTexture()), false));
+            renderer.addZ2(new VisualObject(obj_position, new Vector2(-0.5f, 0f), new Sprite(GameRenderer.getCloudTexture()), false));
         }
     }
 }

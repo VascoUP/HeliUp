@@ -1,4 +1,4 @@
-package com.av.game.desktop.input;
+package com.av.game.desktop;
 
 import com.av.game.input.InputHandler;
 import com.av.game.logic.Game;

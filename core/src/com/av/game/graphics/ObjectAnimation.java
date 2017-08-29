@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class ObjectAnimation extends ObjectRender {
     private Animation<TextureRegion> animation;
 
-    public ObjectAnimation(GameObject gameObject, Texture sheet, int n_cols, int n_lins, float fps) {
-        super(gameObject);
+    public ObjectAnimation(GameObject game_object, Texture sheet, int n_cols, int n_lins, float fps) {
+        super(game_object);
 
         TextureRegion[][] tmp = TextureRegion.split(sheet,
                 sheet.getWidth() / n_cols,
@@ -26,13 +26,13 @@ public class ObjectAnimation extends ObjectRender {
     }
 
     @Override
-    public void render(float stateTime, SpriteBatch batch) {
-        TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+    public void render(float state_time, SpriteBatch batch) {
+        TextureRegion currentFrame = animation.getKeyFrame(state_time, true);
 
-        batch.draw(currentFrame, gameObject.getPosition().x, gameObject.getPosition().y,
+        batch.draw(currentFrame, game_object.getPosition().x, game_object.getPosition().y,
                 currentFrame.getRegionWidth() / 2f, currentFrame.getRegionHeight() / 2f,
                 currentFrame.getRegionWidth(), currentFrame.getRegionHeight(),
                 scale_x, scale_y,
-                gameObject.getRotation());
+                game_object.getRotation());
     }
 }

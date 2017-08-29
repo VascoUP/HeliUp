@@ -26,7 +26,7 @@ public class GameRenderer implements ObjectObserver {
     private static GameRenderer instance;
 
     private SpriteBatch batch;
-    private ShapeRenderer shapeRenderer;
+    private ShapeRenderer shape_renderer;
     private OrthographicCamera cam;
 
     private final Texture helicopter_texture;
@@ -56,7 +56,7 @@ public class GameRenderer implements ObjectObserver {
         item_texture = new Texture(Gdx.files.internal("item.png"));
         cloud_texture = new Texture(Gdx.files.internal("cloud.png"));
 
-        shapeRenderer = new ShapeRenderer();
+        shape_renderer = new ShapeRenderer();
         batch = new SpriteBatch();
         cam = new OrthographicCamera(HeliGame.VIEW_WIDTH, HeliGame.VIEW_HEIGHT);
         cam.position.set(HeliGame.VIEW_WIDTH / 2f, HeliGame.VIEW_HEIGHT / 2f, 0);
@@ -135,7 +135,7 @@ public class GameRenderer implements ObjectObserver {
         return instance.cloud_texture;
     }
 
-    public void render() {
+    public void render(float delta_time) {
         Gdx.gl.glClearColor(0.2f,0.6f,0.9f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -143,7 +143,7 @@ public class GameRenderer implements ObjectObserver {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
-        stateTime += Gdx.graphics.getDeltaTime();
+        stateTime += delta_time;
 
         spawner.update();
         removeRenderables();
@@ -152,7 +152,7 @@ public class GameRenderer implements ObjectObserver {
                 cam.viewportHeight / 2f, 0);
         cam.update();
         batch.setProjectionMatrix(cam.combined);
-        shapeRenderer.setProjectionMatrix(cam.combined);
+        shape_renderer.setProjectionMatrix(cam.combined);
 
         spriteRender(stateTime);
         //shapeRender();
@@ -169,50 +169,50 @@ public class GameRenderer implements ObjectObserver {
             z2.remove(rm);
     }
 
-    private void spriteRender(float stateTime) {
+    private void spriteRender(float state_time) {
         batch.begin();
         for(Renderable renderable : instance.z0)
-            renderable.render(stateTime, batch);
+            renderable.render(state_time, batch);
         for(BuildingSprite renderable : instance.buildings)
-            renderable.render(stateTime, batch);
+            renderable.render(state_time, batch);
         for(Renderable renderable : instance.z1)
-            renderable.render(stateTime, batch);
+            renderable.render(state_time, batch);
         for(Renderable renderable : instance.z2)
-            renderable.render(stateTime, batch);
+            renderable.render(state_time, batch);
         ui.render(batch);
         batch.end();
 
     }
 
     private void shapeRender() {
-        shapeRenderer.setColor(Color.PURPLE);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shape_renderer.setColor(Color.PURPLE);
+        shape_renderer.begin(ShapeRenderer.ShapeType.Line);
         for(BuildingSprite renderable : instance.buildings)
-            renderable.shapeRender(shapeRenderer);
+            renderable.shapeRender(shape_renderer);
         for(Renderable renderable : instance.z1)
-            renderable.shapeRender(shapeRenderer);
-        shapeRenderer.end();
+            renderable.shapeRender(shape_renderer);
+        shape_renderer.end();
     }
 
     @Override
-    public void objectCreated(GameObject objectCreated) {
-        if(objectCreated.getClass().getSimpleName().equals(Refuel.class.getSimpleName()))
-            addZ1(new ObjectSprite(objectCreated, refuel_texture));
-        else if(objectCreated.getClass().getSimpleName().equals(Building.class.getSimpleName()))
-            addBuildings(new BuildingSprite((Building)objectCreated, building_texture));
-        else if(objectCreated.getClass().getSimpleName().equals(IncreaseCapacity.class.getSimpleName()))
-            addZ1(new ObjectSprite(objectCreated, item_texture));
-        else if(objectCreated.getClass().getSimpleName().equals(IncreaseVelocity.class.getSimpleName()))
-            addZ1(new ObjectSprite(objectCreated, item_texture));
-        else if(objectCreated.getClass().getSimpleName().equals(Helicopter.class.getSimpleName()))
-            addZ1(new ObjectAnimation(objectCreated, helicopter_texture, 2, 4, 0.04f));
+    public void objectCreated(GameObject object_created) {
+        if(object_created.getClass().getSimpleName().equals(Refuel.class.getSimpleName()))
+            addZ1(new ObjectSprite(object_created, refuel_texture));
+        else if(object_created.getClass().getSimpleName().equals(Building.class.getSimpleName()))
+            addBuildings(new BuildingSprite((Building) object_created, building_texture));
+        else if(object_created.getClass().getSimpleName().equals(IncreaseCapacity.class.getSimpleName()))
+            addZ1(new ObjectSprite(object_created, item_texture));
+        else if(object_created.getClass().getSimpleName().equals(IncreaseVelocity.class.getSimpleName()))
+            addZ1(new ObjectSprite(object_created, item_texture));
+        else if(object_created.getClass().getSimpleName().equals(Helicopter.class.getSimpleName()))
+            addZ1(new ObjectAnimation(object_created, helicopter_texture, 2, 4, 0.04f));
     }
 
     @Override
-    public void objectDestroyed(GameObject objectDestroyed) {
+    public void objectDestroyed(GameObject object_destroyed) {
         for(Renderable renderable : z1) {
-            if(((ObjectRender)renderable).getGameObject() == objectDestroyed) {
-                if(objectDestroyed.getClass().getSimpleName().equals(Building.class.getSimpleName()))
+            if(((ObjectRender)renderable).getGameObject() == object_destroyed) {
+                if(object_destroyed.getClass().getSimpleName().equals(Building.class.getSimpleName()))
                     rmBuildings((BuildingSprite) renderable);
                 else
                     rmZ1(renderable);

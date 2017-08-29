@@ -8,17 +8,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class ObjectSprite extends ObjectRender {
     private Sprite sprite;
 
-    public ObjectSprite(GameObject gameObject, Texture texture) {
-        super(gameObject);
+    public ObjectSprite(GameObject game_object, Texture texture) {
+        super(game_object);
         sprite = new Sprite(texture);
     }
 
     @Override
-    public void render(float stateTime, SpriteBatch batch) {
-        batch.draw(sprite, gameObject.getPosition().x, gameObject.getPosition().y,
+    public void render(float state_time, SpriteBatch batch) {
+        batch.draw(sprite, game_object.getPosition().x, game_object.getPosition().y,
                 sprite.getRegionWidth() / 2f, sprite.getRegionHeight() / 2f,
                 sprite.getRegionWidth(), sprite.getRegionHeight(),
                 scale_x, scale_y,
-                gameObject.getRotation());
+                game_object.getRotation());
     }
 }
