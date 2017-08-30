@@ -9,11 +9,6 @@ public class PhysicsObject extends GameObject {
     private float velocity_y;
     protected float velocity_x;
 
-    public PhysicsObject(Vector2 position, Polygon polygon) {
-        super(position, polygon);
-        Physics.addObject(this);
-    }
-
     public PhysicsObject(Vector2 position, float rotation, Polygon polygon) {
         super(position, rotation, polygon);
         Physics.addObject(this);
@@ -23,7 +18,7 @@ public class PhysicsObject extends GameObject {
         return acceleration_y;
     }
 
-    public void setAccelerationY(float acceleration_y) {
+    protected void setAccelerationY(float acceleration_y) {
         this.acceleration_y = acceleration_y;
     }
 
@@ -37,9 +32,5 @@ public class PhysicsObject extends GameObject {
 
     public float getVelocityX() {
         return velocity_x;
-    }
-
-    public void destroy() {
-        Physics.rmObject(this);
     }
 }

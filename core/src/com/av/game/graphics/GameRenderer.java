@@ -1,10 +1,9 @@
 package com.av.game.graphics;
 
-import com.av.game.gui.GameUI;
+import com.av.game.gui.UI;
 import com.av.game.logic.Game;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.ObjectObserver;
-import com.av.game.logic.object.ObjectsNotifier;
 import com.av.game.logic.object.building.Building;
 import com.av.game.logic.object.helicopter.Helicopter;
 import com.av.game.logic.object.item.IncreaseCapacity;
@@ -44,7 +43,7 @@ public class GameRenderer implements ObjectObserver {
     private LinkedList<BuildingSprite> rmbuildings;
     private LinkedList<Renderable> rmz2;
 
-    private GameUI ui;
+    private UI ui;
 
     private VisualObjectSpawner spawner;
     private float stateTime = 0f;
@@ -70,8 +69,10 @@ public class GameRenderer implements ObjectObserver {
         rmz1 = new LinkedList<Renderable>();
         rmbuildings = new LinkedList<BuildingSprite>();
         rmz2 = new LinkedList<Renderable>();
-        ui = new GameUI(Game.getGame());
-        ObjectsNotifier.addObserver(this);
+
+        //ui = new GameUI(Game.getGame());
+        ui = null;
+
         spawner = new VisualObjectSpawner(this);
     }
 
@@ -93,6 +94,12 @@ public class GameRenderer implements ObjectObserver {
         instance.rmbuildings.clear();
         instance.rmz2.clear();
     }
+
+
+    public void setUI(UI ui) {
+        this.ui = ui;
+    }
+
 
     void addZ0(Renderable renderable) {
         instance.z0.add(renderable);
@@ -179,7 +186,8 @@ public class GameRenderer implements ObjectObserver {
             renderable.render(state_time, batch);
         for(Renderable renderable : instance.z2)
             renderable.render(state_time, batch);
-        ui.render(batch);
+        if(ui != null)
+            ui.render(batch);
         batch.end();
 
     }

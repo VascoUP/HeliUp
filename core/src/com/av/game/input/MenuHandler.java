@@ -1,6 +1,5 @@
 package com.av.game.input;
 
-import com.av.game.HeliGame;
 import com.av.game.screen.util.ScreenEnum;
 import com.av.game.screen.util.ScreenManager;
 import com.badlogic.gdx.Gdx;
@@ -12,11 +11,7 @@ public class MenuHandler implements InputHandler {
     private boolean realeased = false;
     private boolean touched = false;
 
-    private HeliGame game;
-
-    public MenuHandler(HeliGame game) {
-        this.game = game;
-    }
+    public MenuHandler() {}
 
     @Override
     public void handleInput() {
@@ -28,7 +23,6 @@ public class MenuHandler implements InputHandler {
         } else if (touched) {
             touched = false;
             ScreenManager.getInstance().showScreen(ScreenEnum.GAME);
-            //game.toGame();
         }
     }
 }

@@ -1,24 +1,31 @@
 package com.av.game.logic.physics;
 
 import com.av.game.logic.object.GameObject;
+import com.av.game.logic.object.ObjectObserver;
 import com.av.game.logic.throwable.OccupiedPositionError;
+import com.badlogic.gdx.Gdx;
 
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-public class CollisionObserver {
-    private static String TAG = "CollisionObserver";
-    private static CollisionObserver instance;
+public class CollisionNotifier implements ObjectObserver {
+    private static String TAG = CollisionNotifier.class.getSimpleName();
 
+    //Singleton class: only one instance of this class is allowed to exist
+    private static CollisionNotifier instance;
+
+    //Objects that might crash into other objects
     private Set<GameObject> collision_objects;
+    //Static objects that are only crashed onto, and never crash on their own
     private Set<Collidable> collidables;
 
+    //Queue of objects that will be destroyed in the next update
     private Queue<GameObject> collisions_to_remove;
     private Queue<Collidable> collidables_to_remove;
 
-    private CollisionObserver() {
+    private CollisionNotifier() {
         collision_objects = new HashSet<GameObject>();
         collidables = new HashSet<Collidable>();
         collisions_to_remove = new PriorityQueue<GameObject>();
@@ -26,11 +33,16 @@ public class CollisionObserver {
     }
 
     public static void createInstance() {
-        instance = new CollisionObserver();
+        instance = new CollisionNotifier();
     }
 
-    public static CollisionObserver getInstance() {
+    public static CollisionNotifier getInstance() {
         return instance;
+    }
+
+    public static void clear() {
+        instance.collision_objects.clear();
+        instance.collidables.clear();
     }
 
     public static void addCollisionObject(GameObject collision_object) {
@@ -53,16 +65,14 @@ public class CollisionObserver {
         instance.collidables_to_remove.add(collidable);
     }
 
-    public static void clear() {
-        instance.collision_objects.clear();
-        instance.collidables.clear();
-    }
-
     public void checkCollisions() {
+        //Remove objects on the queues
         while(!collisions_to_remove.isEmpty())
             collision_objects.remove(collisions_to_remove.remove());
         while(!collidables_to_remove.isEmpty())
             collidables.remove(collidables_to_remove.remove());
+
+        //Check collisions
         for(GameObject collision_object : collision_objects)
             for(Collidable collidable : collidables) {
                 if (collidable.isColliding(collision_object))
@@ -70,5 +80,16 @@ public class CollisionObserver {
                 else
                     collidable.isOutOfBounds();
             }
+    }
+
+    @Override
+    public void objectCreated(GameObject object_created) {}
+
+    @Override
+    public void objectDestroyed(GameObject object_destroyed) {
+        Gdx.app.log(TAG, "Destroyed an object " + object_destroyed);
+        removeCollisionObject(object_destroyed);
+        if(object_destroyed.getClass().isAssignableFrom(Collidable.class))
+            removeCollidable((Collidable)object_destroyed);
     }
 }

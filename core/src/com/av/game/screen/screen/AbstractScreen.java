@@ -23,6 +23,7 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        //On screen resize change width
         ScreenInfo.width = ScreenInfo.height * (Gdx.graphics.getWidth() / (float)Gdx.graphics.getHeight());
     }
 

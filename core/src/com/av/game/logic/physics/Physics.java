@@ -1,20 +1,27 @@
 package com.av.game.logic.physics;
 
+import com.av.game.logic.object.GameObject;
+import com.av.game.logic.object.ObjectObserver;
 import com.av.game.logic.object.PhysicsObject;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Physics {
-    private static String TAG = "Physics";
+public class Physics implements ObjectObserver {
+    private static String TAG = Physics.class.getSimpleName();
+
+    //Singleton class: only one instance of this class is allowed to exist
     public static Physics instance;
 
-    public static final float GRAVITY_ACCELERATION = 0.8f;
+    private static final float GRAVITY_ACCELERATION = 0.8f;
 
-    private LinkedList<PhysicsObject> objects;
+    //List of object affected by physics
+    private Set<PhysicsObject> objects;
 
     private Physics() {
-        objects = new LinkedList<PhysicsObject>();
+        objects = new HashSet<PhysicsObject>();
     }
 
     public static void createInstance() {
@@ -47,4 +54,13 @@ public class Physics {
         }
     }
 
+    @Override
+    public void objectCreated(GameObject object_created) {}
+
+    @Override
+    public void objectDestroyed(GameObject object_destroyed) {
+        Gdx.app.log(TAG, "Destroyed an object " + object_destroyed);
+        if(object_destroyed.getClass().isAssignableFrom(PhysicsObject.class))
+            rmObject((PhysicsObject)object_destroyed);
+    }
 }

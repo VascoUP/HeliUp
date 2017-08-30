@@ -5,24 +5,27 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameObject implements Comparable {
-    private static String TAG = "GameObject";
-
     private Vector2 position;
     private float rotation;
     private Polygon collision;
 
-    public GameObject (Vector2 position, Polygon polygon) {
+    private void constructor(Vector2 position, Polygon polygon) {
         this.position = position;
-        this.rotation = 0;
         this.collision = polygon;
+
+        //Set origin to the center of the object
+        Rectangle boundingRectangle = this.collision.getBoundingRectangle();
+        this.collision.setOrigin(boundingRectangle.getWidth() / 2f, boundingRectangle.getHeight() / 2f);
+    }
+
+    public GameObject (Vector2 position, Polygon polygon) {
+        constructor(position, polygon);
+        this.rotation = 0;
     }
 
     public GameObject (Vector2 position, float rotation, Polygon polygon) {
-        this.position = position;
+        constructor(position, polygon);
         this.rotation = rotation;
-        this.collision = polygon;
-        Rectangle boundingRectangle = this.collision.getBoundingRectangle();
-        this.collision.setOrigin(boundingRectangle.getWidth() / 2f, boundingRectangle.getHeight() / 2f);
     }
 
     public Vector2 getPosition() {
@@ -41,11 +44,9 @@ public class GameObject implements Comparable {
         return this.collision;
     }
 
-    public void setRotation(float rotation) {
+    protected void setRotation(float rotation) {
         this.rotation = rotation;
     }
-
-    public void destroy() {}
 
     @Override
     public int compareTo(Object o) {
