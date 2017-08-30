@@ -96,6 +96,10 @@ public class GameRenderer implements ObjectObserver {
     }
 
 
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
     public void setUI(UI ui) {
         this.ui = ui;
     }
