@@ -10,6 +10,7 @@ import org.robovm.apple.uikit.UIApplication;
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
+        Input.gui_handler = new GUIHandler();
         Input.game_handler = new HeliHandler();
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
         return new IOSApplication(new HeliGame(), config);

@@ -1,8 +1,9 @@
 package com.av.game.screen.util;
 
 import com.av.game.screen.screen.AbstractScreen;
-import com.av.game.screen.screen.EndGameScreen;
+import com.av.game.screen.screen.CountDownScreen;
 import com.av.game.screen.screen.GameScreen;
+import com.av.game.screen.screen.PauseMenu;
 
 //Enum with all diferent screens
 public enum ScreenEnum {
@@ -12,9 +13,15 @@ public enum ScreenEnum {
             return new GameScreen();
         }
     },
+    //Count down screen
+    COUNT_DOWN {
+        public AbstractScreen getScreen(Object... params) {
+            return new CountDownScreen();
+        }
+    },
     //End menu screen
-    ENDMENU {
-        public AbstractScreen getScreen(Object... params) { return new EndGameScreen(); }
+    PAUSE_MENU {
+        public AbstractScreen getScreen(Object... params) { return new PauseMenu(); }
     };
 
     public abstract AbstractScreen getScreen(Object... params);

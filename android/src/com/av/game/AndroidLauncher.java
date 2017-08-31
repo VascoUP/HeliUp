@@ -10,6 +10,7 @@ public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Input.gui_handler = new GUIHandler();
 		Input.game_handler = new HeliHandler();
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new HeliGame(), config);

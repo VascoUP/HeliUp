@@ -17,8 +17,7 @@ public class GameUI extends UI {
     }
 
     public void render(SpriteBatch batch) {
-        UI.camera.update();
-        batch.setProjectionMatrix(UI.camera.combined);
+        super.render(batch);
         font.draw(batch, "KM:" + (int)(game.getHelicopter().getPosition().x/100), KM_X, KM_Y);
         font.draw(batch, "FUEL:" + game.getHelicopter().getHeliFuel().getFuel(), FUEL_X, FUEL_Y);
     }

@@ -4,6 +4,7 @@ import com.av.game.graphics.GameRenderer;
 import com.av.game.input.Input;
 import com.av.game.input.InputObserver;
 import com.av.game.input.MenuHandler;
+import com.av.game.logic.Game;
 import com.av.game.screen.util.ScreenEnum;
 import com.av.game.screen.util.ScreenManager;
 
@@ -19,10 +20,15 @@ public class HeliGame extends com.badlogic.gdx.Game {
 		//Start game by initializing Screen
         ScreenManager.getInstance().initialize(this);
 
-        //Create (or recreate) GameRenderer
-        GameRenderer.createInstance();
+        //Create a new instance of Game
+        Game.createInstance();
+        Game.getGame().create();
 
-        ScreenManager.getInstance().showScreen(ScreenEnum.GAME);
+        //Create new instance of GameRenderer
+        GameRenderer.createInstance();
+        GameRenderer.getInstance().objectCreated(Game.getGame().getHelicopter());
+
+        ScreenManager.getInstance().showScreen(ScreenEnum.COUNT_DOWN);
 	}
 
     @Override

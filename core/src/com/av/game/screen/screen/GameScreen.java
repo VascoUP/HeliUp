@@ -14,12 +14,24 @@ import com.av.game.screen.util.ScreenManager;
 public class GameScreen extends AbstractScreen {
     @Override
     public void buildStage() {
-        //Create (or recreate) a new instance of game
-        if(Game.getGame() == null) {
-            Game.createInstance();
-            //Create all Game's objects
-            Game.getGame().create();
-        }
+        GameRenderer.getInstance().setUI(null);
+    }
+
+    @Override
+    public void show() {
+        //Clear previous screen input handlers
+        InputObserver.clear();
+        //And this Screen's input handler
+        InputObserver.addInputListenner(Input.gui_handler);
+        InputObserver.addInputListenner(Input.game_handler);
+
+        //Change UI
+        GameRenderer.getInstance().setUI(new GameUI(Game.getGame()));
+
+        //Add Object observers
+        ObjectsNotifier.addObserver(GameRenderer.getInstance());
+        ObjectsNotifier.addObserver(CollisionNotifier.getInstance());
+        ObjectsNotifier.addObserver(Physics.getInstance());
     }
 
     @Override
@@ -38,37 +50,9 @@ public class GameScreen extends AbstractScreen {
             end();
     }
 
-    @Override
-    public void show() {
-        //Clear previous screen input handlers
-        InputObserver.clear();
-        //And this Screen's input handler
-        InputObserver.addInputListenner(Input.game_handler);
-
-        //Change UI
-        GameRenderer.getInstance().setUI(new GameUI(Game.getGame()));
-
-        //if(Game.getGame().isGameOver()) {
-            //Create all Game's objects
-            Game.getGame().create();
-
-            //Reset GameRenderer
-            GameRenderer.clear();
-            GameRenderer.getInstance().objectCreated(Game.getGame().getHelicopter());
-
-            //Add GameRenderer as a Object observer
-            ObjectsNotifier.addObserver(GameRenderer.getInstance());
-            ObjectsNotifier.addObserver(CollisionNotifier.getInstance());
-            ObjectsNotifier.addObserver(Physics.getInstance());
-        //}
-    }
-
     private void end() {
-        //Reset UI
-        GameRenderer.getInstance().setUI(null);
-
         //On game over go to End Menu
-        ScreenManager.getInstance().showScreen(ScreenEnum.ENDMENU);
+        ScreenManager.getInstance().showScreen(ScreenEnum.PAUSE_MENU);
     }
 
     @Override

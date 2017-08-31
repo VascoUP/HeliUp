@@ -100,6 +100,10 @@ public class GameRenderer implements ObjectObserver {
         return batch;
     }
 
+    public UI getUI() {
+        return this.ui;
+    }
+
     public void setUI(UI ui) {
         this.ui = ui;
     }
