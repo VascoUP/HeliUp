@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "506253859494",
+    "firebase_url": "https://heliup-c269c.firebaseio.com",
+    "project_id": "heliup-c269c",
+    "storage_bucket": "heliup-c269c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506253859494:android:2de3132380e2eb40",
+        "android_client_info": {
+          "package_name": "com.av.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506253859494-medn6drihmj851kn6phcrvqj0bmsvtv7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.av.game",
+            "certificate_hash": "f7db6fa5dc2bcd11785b79a41c8e7c0684764ab4"
+          }
+        },
+        {
+          "client_id": "506253859494-otn469sa1gqjlb785gj86fkbbv9egjit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7UFQJf8S7DMF4vRYAXZmnBpFj5gz0Uqg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506253859494-otn469sa1gqjlb785gj86fkbbv9egjit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
