@@ -3,7 +3,6 @@ package com.av.game.logic.physics;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.ObjectObserver;
 import com.av.game.logic.throwable.OccupiedPositionError;
-import com.badlogic.gdx.Gdx;
 
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -87,7 +86,6 @@ public class CollisionNotifier implements ObjectObserver {
 
     @Override
     public void objectDestroyed(GameObject object_destroyed) {
-        Gdx.app.log(TAG, "Destroyed an object " + object_destroyed);
         removeCollisionObject(object_destroyed);
         if(object_destroyed.getClass().isAssignableFrom(Collidable.class))
             removeCollidable((Collidable)object_destroyed);

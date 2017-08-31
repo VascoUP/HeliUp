@@ -3,7 +3,6 @@ package com.av.game.logic.physics;
 import com.av.game.logic.object.GameObject;
 import com.av.game.logic.object.ObjectObserver;
 import com.av.game.logic.object.PhysicsObject;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashSet;
@@ -59,7 +58,6 @@ public class Physics implements ObjectObserver {
 
     @Override
     public void objectDestroyed(GameObject object_destroyed) {
-        Gdx.app.log(TAG, "Destroyed an object " + object_destroyed);
         if(object_destroyed.getClass().isAssignableFrom(PhysicsObject.class))
             rmObject((PhysicsObject)object_destroyed);
     }
