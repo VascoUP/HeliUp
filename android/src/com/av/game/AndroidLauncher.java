@@ -18,7 +18,7 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
     protected RewardedVideoAd ad;
     private AdListener adListener;
 
-    private static final String AD_UNIT_ID = "ca-app-pub-3019234278401415/7181475663";
+    private static final String AD_UNIT_ID = "ca-app-pub-3019234278401415/5229690625";
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
