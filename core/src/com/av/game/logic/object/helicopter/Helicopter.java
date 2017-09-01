@@ -8,6 +8,7 @@ import com.av.game.logic.object.helicopter.component.fuel.CoreHeliFuel;
 import com.av.game.logic.object.helicopter.component.fuel.HeliFuel;
 import com.av.game.logic.object.helicopter.component.fuel.HeliFuelDecorator;
 import com.av.game.logic.physics.CollisionNotifier;
+import com.av.game.screen.util.ScreenInfo;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
@@ -39,6 +40,10 @@ public class Helicopter extends PhysicsObject {
 
     public HeliFuel getHeliFuel() {
         return heliFuel;
+    }
+
+    public void resetPositionY() {
+        position.set(position.x, ScreenInfo.height / 2f);
     }
 
     public void decorateBase(BaseHeliDecorator decorator) {

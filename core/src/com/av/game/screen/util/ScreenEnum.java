@@ -1,6 +1,7 @@
 package com.av.game.screen.util;
 
 import com.av.game.screen.screen.AbstractScreen;
+import com.av.game.screen.screen.AdScreen;
 import com.av.game.screen.screen.CountDownScreen;
 import com.av.game.screen.screen.GameScreen;
 import com.av.game.screen.screen.PauseMenu;
@@ -17,6 +18,11 @@ public enum ScreenEnum {
     COUNT_DOWN {
         public AbstractScreen getScreen(Object... params) {
             return new CountDownScreen();
+        }
+    },
+    AD_SCREEN {
+        public AbstractScreen getScreen(Object... params) {
+            return new AdScreen();
         }
     },
     //End menu screen

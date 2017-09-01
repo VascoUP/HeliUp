@@ -1,5 +1,7 @@
 package com.av.game.screen.ads;
 
+import com.av.game.screen.screen.AdScreen;
+
 public interface ActionResolver {
-    public void showOrLoadInterstital();
+    void showOrLoadInterstital(AdScreen screen);
 }

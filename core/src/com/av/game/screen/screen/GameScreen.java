@@ -8,10 +8,8 @@ import com.av.game.logic.Game;
 import com.av.game.logic.object.ObjectsNotifier;
 import com.av.game.logic.physics.CollisionNotifier;
 import com.av.game.logic.physics.Physics;
-import com.av.game.screen.ads.Device;
 import com.av.game.screen.util.ScreenEnum;
 import com.av.game.screen.util.ScreenManager;
-import com.badlogic.gdx.Gdx;
 
 public class GameScreen extends AbstractScreen {
     private static String TAG = "GameScreen";
@@ -55,11 +53,8 @@ public class GameScreen extends AbstractScreen {
     }
 
     private void end() {
-        //On game over go to End Menu
-        Gdx.app.log(TAG, Device.showAndroidAd + " - show?");
-        if(Device.showAndroidAd)
-            Device.app.showOrLoadInterstital();
-        ScreenManager.getInstance().showScreen(ScreenEnum.PAUSE_MENU);
+        //On game over go to Ad
+        ScreenManager.getInstance().showScreen(ScreenEnum.AD_SCREEN);
     }
 
     @Override

@@ -15,9 +15,11 @@ public class Game {
 
     //Variable that tells if game is over or not
     private boolean endGame;
+    private boolean retried;
 
     //Helicopter instance
     private Helicopter helicopter;
+
 
     //private LinkedList<Item> items;
     //private LinkedList<GameObject> buildings;
@@ -28,9 +30,6 @@ public class Game {
         CollisionNotifier.createInstance();
         ObjectsNotifier.createInstance();
         ObjectSpawn.createInstance();
-
-        //items = new LinkedList<Item>();
-        //buildings = new LinkedList<GameObject>();
     }
 
     public static void createInstance() {
@@ -46,51 +45,22 @@ public class Game {
         Physics.clear();
         CollisionNotifier.clear();
         ObjectsNotifier.clear();
-
-        //items.clear();
-        //buildings.clear();
-
-        //Initialize objectSpawn
         ObjectSpawn.reset();
 
         endGame = false;
+        retried = false;
 
         //Initialize helicopter
         helicopter = new Helicopter(new Vector2(200f, ScreenInfo.height / 2f));
     }
 
+    public boolean getRetried() {
+        return retried;
+    }
+
     public Helicopter getHelicopter() {
         return helicopter;
     }
-
-    /*void addItem(Item item) {
-        //items.add(item);
-        addObject((GameObject)item);
-    }
-
-    public void rmItem(Item item) {
-        //items.remove(item);
-        rmObject((GameObject)item);
-    }
-
-    void addBuilding(GameObject building) {
-        //buildings.add(building);
-        addObject(building);
-    }
-
-    public void rmBuilding(GameObject building) {
-        //buildings.remove(building);
-        rmObject(building);
-    }
-
-
-
-    public void rmCollidable(CollidableObject collidable) {
-        if(Item.class.isInstance(collidable))
-            rmItem((Item)collidable);
-        else
-            rmObject(collidable);
-    }*/
 
     public void addObject(GameObject object) {
         ObjectsNotifier.getInstance().notifyCreate(object);
@@ -127,6 +97,26 @@ public class Game {
 
     public void endGame() {
         endGame = true;
+    }
+
+    public void retry() {
+        //Clear all classes of previous Games' objects
+        Physics.clear();
+        CollisionNotifier.clear();
+        ObjectsNotifier.clear();
+
+        //Initialize objectSpawn
+        ObjectSpawn.reset();
+
+        Physics.addObject(helicopter);
+        CollisionNotifier.addCollisionObject(helicopter);
+
+        endGame = false;
+        retried = true;
+
+        //Reset heli fuel
+        helicopter.getHeliFuel().setFuel(Game.getGame().getHelicopter().getHeliFuel().getCapacity());
+        helicopter.resetPositionY();
     }
 
     public boolean objectOutOfBounds(GameObject object) {

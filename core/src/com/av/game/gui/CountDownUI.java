@@ -1,5 +1,6 @@
 package com.av.game.gui;
 
+import com.av.game.assets.AssetManager;
 import com.av.game.screen.screen.CountDownScreen;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +12,7 @@ public class CountDownUI extends UI {
     public CountDownUI(final CountDownScreen screen) {
         super();
         this.screen = screen;
-        this.layout = new GlyphLayout(UI.font, (int)screen.getCountDown() + "");
+        this.layout = new GlyphLayout(AssetManager.getInstance().ui_font, (int)screen.getCountDown() + "");
     }
 
     public void render(SpriteBatch batch) {
@@ -27,8 +28,8 @@ public class CountDownUI extends UI {
             tag = count_down + "";
 
         //Reset layout
-        this.layout.setText(UI.font, tag);
+        this.layout.setText(AssetManager.getInstance().ui_font, tag);
 
-        UI.font.draw(batch, layout, UI.width / 2f - layout.width / 2f, UI.height - 40f + layout.height / 2f);
+        AssetManager.getInstance().ui_font.draw(batch, layout, AssetManager.getInstance().ui_width / 2f - layout.width / 2f, AssetManager.getInstance().ui_height - 40f + layout.height / 2f);
     }
 }

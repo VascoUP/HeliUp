@@ -1,5 +1,6 @@
 package com.av.game.graphics;
 
+import com.av.game.assets.AssetManager;
 import com.av.game.gui.UI;
 import com.av.game.logic.Game;
 import com.av.game.logic.object.GameObject;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -27,12 +27,6 @@ public class GameRenderer implements ObjectObserver {
     private SpriteBatch batch;
     private ShapeRenderer shape_renderer;
     private OrthographicCamera cam;
-
-    private final Texture helicopter_texture;
-    private final Texture refuel_texture;
-    private final Texture building_texture;
-    private final Texture item_texture;
-    private final Texture cloud_texture;
 
     private LinkedList<Renderable> z0;
     private LinkedList<Renderable> z1;
@@ -49,11 +43,6 @@ public class GameRenderer implements ObjectObserver {
     private float stateTime = 0f;
 
     private GameRenderer() {
-        helicopter_texture = new Texture(Gdx.files.internal("helicopter.png"));
-        refuel_texture = new Texture(Gdx.files.internal("gasoline.png"));
-        building_texture = new Texture(Gdx.files.internal("building.png"));
-        item_texture = new Texture(Gdx.files.internal("item.png"));
-        cloud_texture = new Texture(Gdx.files.internal("cloud.png"));
 
         shape_renderer = new ShapeRenderer();
         batch = new SpriteBatch();
@@ -70,7 +59,6 @@ public class GameRenderer implements ObjectObserver {
         rmbuildings = new LinkedList<BuildingSprite>();
         rmz2 = new LinkedList<Renderable>();
 
-        //ui = new GameUI(Game.getGame());
         ui = null;
 
         spawner = new VisualObjectSpawner(this);
@@ -146,9 +134,6 @@ public class GameRenderer implements ObjectObserver {
         return instance.cam.position;
     }
 
-    static Texture getCloudTexture() {
-        return instance.cloud_texture;
-    }
 
     public void render(float delta_time) {
         Gdx.gl.glClearColor(0.2f,0.6f,0.9f,1);
@@ -213,15 +198,15 @@ public class GameRenderer implements ObjectObserver {
     @Override
     public void objectCreated(GameObject object_created) {
         if(object_created.getClass().getSimpleName().equals(Refuel.class.getSimpleName()))
-            addZ1(new ObjectSprite(object_created, refuel_texture));
+            addZ1(new ObjectSprite(object_created, AssetManager.getInstance().refuel_texture));
         else if(object_created.getClass().getSimpleName().equals(Building.class.getSimpleName()))
-            addBuildings(new BuildingSprite((Building) object_created, building_texture));
+            addBuildings(new BuildingSprite((Building) object_created, AssetManager.getInstance().building_texture));
         else if(object_created.getClass().getSimpleName().equals(IncreaseCapacity.class.getSimpleName()))
-            addZ1(new ObjectSprite(object_created, item_texture));
+            addZ1(new ObjectSprite(object_created, AssetManager.getInstance().item_texture));
         else if(object_created.getClass().getSimpleName().equals(IncreaseVelocity.class.getSimpleName()))
-            addZ1(new ObjectSprite(object_created, item_texture));
+            addZ1(new ObjectSprite(object_created, AssetManager.getInstance().item_texture));
         else if(object_created.getClass().getSimpleName().equals(Helicopter.class.getSimpleName()))
-            addZ1(new ObjectAnimation(object_created, helicopter_texture, 2, 4, 0.04f));
+            addZ1(new ObjectAnimation(object_created, AssetManager.getInstance().helicopter_texture, 2, 4, 0.04f));
     }
 
     @Override
@@ -239,8 +224,5 @@ public class GameRenderer implements ObjectObserver {
 
     public static void dispose() {
         instance.batch.dispose();
-        instance.helicopter_texture.dispose();
-        instance.refuel_texture.dispose();
-        instance.building_texture.dispose();
     }
 }

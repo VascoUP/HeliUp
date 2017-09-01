@@ -1,5 +1,6 @@
 package com.av.game;
 
+import com.av.game.assets.AssetManager;
 import com.av.game.graphics.GameRenderer;
 import com.av.game.input.Input;
 import com.av.game.input.InputObserver;
@@ -11,6 +12,8 @@ import com.av.game.screen.util.ScreenManager;
 public class HeliGame extends com.badlogic.gdx.Game {
 	@Override
 	public void create () {
+        AssetManager.createInstance();
+
 		//Initialize input observer
 		InputObserver.createInstance();
 
@@ -35,5 +38,6 @@ public class HeliGame extends com.badlogic.gdx.Game {
     public void dispose() {
         super.dispose();
         GameRenderer.dispose();
+        AssetManager.getInstance().dispose();
     }
 }

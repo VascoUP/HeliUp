@@ -1,5 +1,6 @@
 package com.av.game;
 
+import com.av.game.assets.AssetManager;
 import com.av.game.graphics.GameRenderer;
 import com.av.game.gui.UI;
 import com.av.game.gui.button.Button;
@@ -65,8 +66,8 @@ public class GUIHandler implements InputHandler {
     }
 
     private Vector2 calculatePointer() {
-        float calc_x = UI.width / Gdx.graphics.getWidth();
-        float calc_y = UI.height / Gdx.graphics.getHeight();
-        return new Vector2(Gdx.input.getX() * calc_x, UI.height - Gdx.input.getY() * calc_y);
+        float calc_x = AssetManager.getInstance().ui_width / Gdx.graphics.getWidth();
+        float calc_y = AssetManager.getInstance().ui_height / Gdx.graphics.getHeight();
+        return new Vector2(Gdx.input.getX() * calc_x, AssetManager.getInstance().ui_height - Gdx.input.getY() * calc_y);
     }
 }

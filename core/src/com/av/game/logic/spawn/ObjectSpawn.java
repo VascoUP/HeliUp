@@ -13,19 +13,21 @@ public class ObjectSpawn {
     //Singleton class: only one instance is allowed to exist
     private static ObjectSpawn instance;
 
-    //Static values
+    //Spawn distances
     private static final float FUEL_SPAWN_DISTANCE = 1000f;
     private static final float ITEM_SPAWN_DISTANCE = 5000f;
     private static final float BUILDING_SPAWN_DISTANCE = 1000f;
+
+    //Spawn heights
     private static float FUEL_MAX_HEIGHT;
     private static float BUILDING_MAX_HEIGHT;
     private static float FUEL_MIN_HEIGHT;
     private static float BUILDING_MIN_HEIGHT;
 
     //Distance counters
-    private float fuel_distance_spawner = 1000f;
-    private float item_distance_spawner = 250f;
-    private float building_distance_spawner = 500f;
+    private float fuel_distance_spawner;
+    private float item_distance_spawner;
+    private float building_distance_spawner;
 
     private Random random;
 
@@ -35,6 +37,9 @@ public class ObjectSpawn {
         BUILDING_MAX_HEIGHT = ScreenInfo.height - 270f;
         FUEL_MIN_HEIGHT = 70f;
         BUILDING_MIN_HEIGHT = -660f;
+
+        //Set counters to their initial value
+        resetCounters();
 
         random = new Random();
     }
@@ -48,9 +53,13 @@ public class ObjectSpawn {
     }
 
     public static void reset() {
-        instance.fuel_distance_spawner = 1000f;
-        instance.item_distance_spawner = 0f;
-        instance.building_distance_spawner = 500f;
+        instance.resetCounters();
+    }
+
+    private void resetCounters() {
+        fuel_distance_spawner = 1000f;
+        item_distance_spawner = 250f;
+        building_distance_spawner = 500f;
     }
 
     public void update(float delta_distance) {

@@ -42,6 +42,8 @@ public class CollisionNotifier implements ObjectObserver {
     public static void clear() {
         instance.collision_objects.clear();
         instance.collidables.clear();
+        instance.collisions_to_remove.clear();
+        instance.collidables_to_remove.clear();
     }
 
     public static void addCollisionObject(GameObject collision_object) {

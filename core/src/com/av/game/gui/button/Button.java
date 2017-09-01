@@ -1,7 +1,7 @@
 package com.av.game.gui.button;
 
+import com.av.game.assets.AssetManager;
 import com.av.game.gui.ElementAction;
-import com.av.game.gui.UI;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -47,7 +47,7 @@ public class Button implements ElementAction {
         this.texture = ButtonLoader.loadButtonTexture();
         this.action = null;
         this.label = "";
-        this.layout = new GlyphLayout(UI.font, label);
+        this.layout = new GlyphLayout(AssetManager.getInstance().ui_font, label);
     }
 
     public Button(Vector2 position) {
@@ -58,7 +58,7 @@ public class Button implements ElementAction {
         this.texture = ButtonLoader.loadButtonTexture();
         this.action = null;
         this.label = "";
-        this.layout = new GlyphLayout(UI.font, label);
+        this.layout = new GlyphLayout(AssetManager.getInstance().ui_font, label);
     }
 
     public Button(Vector2 position, Vector2 size) {
@@ -69,7 +69,7 @@ public class Button implements ElementAction {
         this.texture = ButtonLoader.loadButtonTexture();
         this.action = null;
         this.label = "";
-        this.layout = new GlyphLayout(UI.font, label);
+        this.layout = new GlyphLayout(AssetManager.getInstance().ui_font, label);
     }
 
 
@@ -117,12 +117,12 @@ public class Button implements ElementAction {
 
     public void setLabel(String label) {
         this.label = label;
-        this.layout = new GlyphLayout(UI.font, label);
+        this.layout = new GlyphLayout(AssetManager.getInstance().ui_font, label);
     }
 
     public void render(SpriteBatch batch) {
         batch.draw(texture[buttonState.getTextureRegion()], position.x, position.y, size.x, size.y);
-        UI.font.draw(batch, layout, position.x + (size.x - layout.width) / 2f, position.y + (size.y + layout.height) / 2f);
+        AssetManager.getInstance().ui_font.draw(batch, layout, position.x + (size.x - layout.width) / 2f, position.y + (size.y + layout.height) / 2f);
     }
 
 

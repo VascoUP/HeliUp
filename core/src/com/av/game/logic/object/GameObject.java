@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameObject implements Comparable {
-    private Vector2 position;
+    protected Vector2 position;
     private float rotation;
     private Polygon collision;
 

@@ -25,7 +25,7 @@ public class PauseMenu extends AbstractScreen {
         InputObserver.addInputListenner(Input.end_menu_handler);
 
         //Change UI
-        GameRenderer.getInstance().setUI(new PauseMenuUI(this, (int)Game.getGame().getHelicopter().getPosition().x/100));
+        GameRenderer.getInstance().setUI(new PauseMenuUI(this, (int) Game.getGame().getHelicopter().getPosition().x/100));
     }
 
     @Override
