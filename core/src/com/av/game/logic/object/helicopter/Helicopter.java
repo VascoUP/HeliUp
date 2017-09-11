@@ -73,6 +73,7 @@ public class Helicopter extends PhysicsObject {
     }
 
     public void end() {
+        resetForce();
         currState = HeliState.DESTROYED;
     }
 
