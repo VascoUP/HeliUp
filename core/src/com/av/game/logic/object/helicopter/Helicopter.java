@@ -8,6 +8,7 @@ import com.av.game.logic.object.helicopter.component.fuel.CoreHeliFuel;
 import com.av.game.logic.object.helicopter.component.fuel.HeliFuel;
 import com.av.game.logic.object.helicopter.component.fuel.HeliFuelDecorator;
 import com.av.game.logic.physics.CollisionNotifier;
+import com.av.game.logic.physics.Physics;
 import com.av.game.screen.util.ScreenInfo;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Helicopter extends PhysicsObject {
     private static String TAG = "Helicopter";
 
-    private enum HeliState {UP, DOWN}
+    private enum HeliState {UP, DOWN, DESTROYED}
 
     private HeliState currState;
 
@@ -71,6 +72,10 @@ public class Helicopter extends PhysicsObject {
         setAccelerationY(0);
     }
 
+    public void end() {
+        currState = HeliState.DESTROYED;
+    }
+
 
     public void update() {
         if(currState == HeliState.UP) {
@@ -78,8 +83,11 @@ public class Helicopter extends PhysicsObject {
             this.setRotation(this.getRotation() + (max_rotation - this.getRotation()) / 20f);
             if (heliFuel.getFuel() <= 0)
                 resetForce();
-        } else {
+        } else if(currState == HeliState.DOWN) {
             this.setRotation(this.getRotation() - (this.getRotation() - min_rotation) / 20f);
+        } else {
+            Physics.getInstance().update();
+            this.setRotation(this.getRotation() - 10f);
         }
     }
 

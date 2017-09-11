@@ -34,7 +34,8 @@ public class AdScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         if(!Device.showAndroidAd || Game.getGame().getRetried()) {
-            ScreenManager.getInstance().showScreen(ScreenEnum.PAUSE_MENU);
+            Game.getGame().getHelicopter().end();
+            ScreenManager.getInstance().showScreen(ScreenEnum.END_GAME);
             return;
         } else if(!request_ad) {
             Device.app.showOrLoadInterstital(this);
@@ -49,8 +50,10 @@ public class AdScreen extends AbstractScreen {
             GameRenderer.getInstance().objectCreated(Game.getGame().getHelicopter());
 
             ScreenManager.getInstance().showScreen(ScreenEnum.COUNT_DOWN);
-        } else if(ad_closed || ad_load_error)
-            ScreenManager.getInstance().showScreen(ScreenEnum.PAUSE_MENU);
+        } else if(ad_closed || ad_load_error) {
+            Game.getGame().getHelicopter().end();
+            ScreenManager.getInstance().showScreen(ScreenEnum.END_GAME);
+        }
     }
 
     @Override
