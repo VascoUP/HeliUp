@@ -29,13 +29,16 @@ public class ObjectSpawn {
     private float item_distance_spawner;
     private float building_distance_spawner;
 
+    //Last refuel spawn height
+    private float fuel_spawn_height;
+
     private Random random;
 
     private ObjectSpawn() {
         //Define certain static values
-        FUEL_MAX_HEIGHT = ScreenInfo.height - 290f;
-        BUILDING_MAX_HEIGHT = ScreenInfo.height - 270f;
+        FUEL_MAX_HEIGHT = ScreenInfo.height - 250f;
         FUEL_MIN_HEIGHT = 70f;
+        BUILDING_MAX_HEIGHT = -180f;
         BUILDING_MIN_HEIGHT = -660f;
 
         //Set counters to their initial value
@@ -58,8 +61,10 @@ public class ObjectSpawn {
 
     private void resetCounters() {
         fuel_distance_spawner = 1000f;
-        item_distance_spawner = 250f;
+        item_distance_spawner = 750f;
         building_distance_spawner = 500f;
+
+        fuel_spawn_height = -1f;
     }
 
     public void update(float delta_distance) {
@@ -77,7 +82,7 @@ public class ObjectSpawn {
     }
 
     private void updateItem(float deltaTime) {
-        item_distance_spawner = spawn(ObjectEnum.RANDOM_ITEM, item_distance_spawner, deltaTime, ITEM_SPAWN_DISTANCE, FUEL_MAX_HEIGHT, FUEL_MIN_HEIGHT);
+        item_distance_spawner = spawn(ObjectEnum.RANDOM_ITEM, item_distance_spawner, deltaTime, ITEM_SPAWN_DISTANCE, FUEL_MAX_HEIGHT, fuel_spawn_height);
     }
 
     private float spawn(ObjectEnum type_spawn, float distance_since_spawn, float delta_distance, float spawn_distance, float max, float min) {
@@ -121,6 +126,9 @@ public class ObjectSpawn {
                 return distance_since_spawn - 100f;
             }
         }
+
+        if(type_spawn == ObjectEnum.REFUEL)
+            fuel_spawn_height = object.getPosition().y;
 
         Game.getGame().addObject(object);
         return distance_since_spawn - spawn_distance;

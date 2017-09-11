@@ -57,7 +57,7 @@ public class PauseMenuUI extends UI {
                 return true;
             }
         });
-        exit.setLabel("EXIT");
+        exit.setLabel("QUIT");
         addButton(exit);
     }
 

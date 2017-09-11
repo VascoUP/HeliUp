@@ -7,6 +7,7 @@ import com.av.game.logic.object.helicopter.Helicopter;
 import com.av.game.logic.object.item.ItemEnum;
 import com.av.game.logic.object.item.Refuel;
 import com.av.game.logic.throwable.OccupiedPositionError;
+import com.av.game.random.RandomFunctions;
 import com.av.game.screen.util.ScreenInfo;
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,7 +18,7 @@ public enum ObjectEnum {
         @Override
         public GameObject getObject(Random random, float max, float min, Object... params) throws OccupiedPositionError {
             Helicopter helicopter = Game.getGame().getHelicopter();
-            return new Refuel(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, random.nextFloat() * max + min));
+            return new Refuel(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, RandomFunctions.nextFloat(random, max, min)));
         }
 
     }, RANDOM_ITEM {
@@ -30,7 +31,7 @@ public enum ObjectEnum {
         @Override
         public GameObject getObject(Random random, float max, float min, Object... params) throws OccupiedPositionError {
             Helicopter helicopter = Game.getGame().getHelicopter();
-            return new Building(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, random.nextFloat() * max + min));
+            return new Building(new Vector2(helicopter.getPosition().x + ScreenInfo.width - 200f, RandomFunctions.nextFloat(random, max, min)));
         }
     };
 

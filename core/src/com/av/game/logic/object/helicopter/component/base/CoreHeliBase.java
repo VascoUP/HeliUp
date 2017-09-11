@@ -5,8 +5,8 @@ public class CoreHeliBase implements HeliBase {
     private float velocity_x;
 
     public CoreHeliBase() {
-        acceleration_y = 1.4f;
-        velocity_x = 7f;
+        acceleration_y = 1.2f;
+        velocity_x = 6f;
     }
 
     @Override

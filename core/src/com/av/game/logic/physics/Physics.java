@@ -14,7 +14,7 @@ public class Physics implements ObjectObserver {
     //Singleton class: only one instance of this class is allowed to exist
     public static Physics instance;
 
-    private static final float GRAVITY_ACCELERATION = 0.8f;
+    private static final float GRAVITY_ACCELERATION = 0.6f;
 
     //List of object affected by physics
     private Set<PhysicsObject> objects;
