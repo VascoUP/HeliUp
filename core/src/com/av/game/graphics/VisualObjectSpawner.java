@@ -1,6 +1,7 @@
 package com.av.game.graphics;
 
 import com.av.game.assets.AssetManager;
+import com.av.game.random.RandomFunctions;
 import com.av.game.screen.util.ScreenInfo;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -32,7 +33,7 @@ public class VisualObjectSpawner {
     private void updateZ0() {
         if(random.nextInt(200) == 1) {
             Vector3 cam_position = GameRenderer.getCamPosition();
-            Vector2 obj_position = new Vector2(cam_position.x + ScreenInfo.width, random.nextFloat() * MAX_HEIGHT + MIN_HEIGHT);
+            Vector2 obj_position = new Vector2(cam_position.x + ScreenInfo.width, RandomFunctions.nextFloat(random, MAX_HEIGHT, MIN_HEIGHT));
             renderer.addZ0(new VisualObject(obj_position, new Vector2(0.25f, 0f), new Sprite(AssetManager.getInstance().cloud_texture), true));
         }
     }
@@ -40,7 +41,7 @@ public class VisualObjectSpawner {
     private void updateZ2() {
         if(random.nextInt(400) == 1) {
             Vector3 cam_position = GameRenderer.getCamPosition();
-            Vector2 obj_position = new Vector2(cam_position.x + ScreenInfo.width, random.nextFloat() * MAX_HEIGHT + MIN_HEIGHT);
+            Vector2 obj_position = new Vector2(cam_position.x + ScreenInfo.width, RandomFunctions.nextFloat(random, MAX_HEIGHT, MIN_HEIGHT));
             renderer.addZ2(new VisualObject(obj_position, new Vector2(-0.5f, 0f), new Sprite(AssetManager.getInstance().cloud_texture), false));
         }
     }
