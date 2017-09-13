@@ -54,7 +54,7 @@ public class GameScreen extends AbstractScreen {
 
     private void end() {
         //On game over go to Ad
-        ScreenManager.getInstance().showScreen(ScreenEnum.AD_SCREEN);
+        ScreenManager.getInstance().showScreen(ScreenEnum.REVIVE_SCREEN);
     }
 
     @Override

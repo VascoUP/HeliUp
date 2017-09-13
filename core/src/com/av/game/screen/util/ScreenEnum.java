@@ -6,6 +6,7 @@ import com.av.game.screen.screen.CountDownScreen;
 import com.av.game.screen.screen.EndGameScreen;
 import com.av.game.screen.screen.GameScreen;
 import com.av.game.screen.screen.PauseMenu;
+import com.av.game.screen.screen.ReviveScreen;
 
 //Enum with all diferent screens
 public enum ScreenEnum {
@@ -19,6 +20,11 @@ public enum ScreenEnum {
     COUNT_DOWN {
         public AbstractScreen getScreen(Object... params) {
             return new CountDownScreen();
+        }
+    },
+    REVIVE_SCREEN {
+        public AbstractScreen getScreen(Object... params) {
+            return new ReviveScreen();
         }
     },
     AD_SCREEN {

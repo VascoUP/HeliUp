@@ -1,6 +1,7 @@
 package com.av.game.screen.screen;
 
 import com.av.game.graphics.GameRenderer;
+import com.av.game.gui.ReviveUI;
 import com.av.game.input.Input;
 import com.av.game.input.InputObserver;
 import com.av.game.logic.Game;
@@ -8,18 +9,14 @@ import com.av.game.screen.ads.Device;
 import com.av.game.screen.util.ScreenEnum;
 import com.av.game.screen.util.ScreenManager;
 
-public class AdScreen extends AbstractScreen {
-    private boolean ad_load_error;
-    private boolean reward_player;
-    private boolean request_ad;
-    private boolean ad_closed;
+public class ReviveScreen extends AbstractScreen {
+    private boolean to_pause;
+    private boolean to_ad;
 
     @Override
     public void buildStage() {
-        ad_load_error = false;
-        reward_player = false;
-        request_ad = false;
-        ad_closed = false;
+        this.to_ad = false;
+        this.to_pause = false;
         GameRenderer.getInstance().setUI(null);
     }
 
@@ -29,23 +26,27 @@ public class AdScreen extends AbstractScreen {
         InputObserver.clear();
         //And this Screen's input handler
         InputObserver.addInputListenner(Input.gui_handler);
+
+        //Change UI
+        GameRenderer.getInstance().setUI(new ReviveUI(this, (int) Game.getGame().getHelicopter().getPosition().x/100));
     }
 
     @Override
     public void render(float delta) {
-        if(!request_ad) {
-            Device.app.showOrLoadInterstital(this);
-            request_ad = true;
+        if(!Device.showAndroidAd || Game.getGame().getRetried()) {
+            Game.getGame().getHelicopter().end();
+            ScreenManager.getInstance().showScreen(ScreenEnum.END_GAME);
+            return;
         }
 
         GameRenderer.getInstance().render(0f);
 
-        if(reward_player) {
-            Game.getGame().retry();
-            GameRenderer.clear();
-            GameRenderer.getInstance().objectCreated(Game.getGame().getHelicopter());
-            ScreenManager.getInstance().showScreen(ScreenEnum.COUNT_DOWN);
-        } else if(ad_closed || ad_load_error) {
+        //Handle input
+        InputObserver.getInstance().handleInput();
+
+        if(to_ad)
+            ScreenManager.getInstance().showScreen(ScreenEnum.AD_SCREEN);
+        else if(to_pause) {
             Game.getGame().getHelicopter().end();
             ScreenManager.getInstance().showScreen(ScreenEnum.END_GAME);
         }
@@ -54,15 +55,11 @@ public class AdScreen extends AbstractScreen {
     @Override
     public void dispose () {}
 
-    public void setAdLoadError() {
-        ad_load_error = true;
+    public void setToPause() {
+        this.to_pause = true;
     }
 
-    public void setRewardPlayer() {
-        reward_player = true;
-    }
-
-    public void setAdClosed() {
-        ad_closed = true;
+    public void setToAd() {
+        this.to_ad = true;
     }
 }

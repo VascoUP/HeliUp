@@ -26,10 +26,10 @@ public class VisualObject implements Renderable {
     @Override
     public void render(float state_time, SpriteBatch batch) {
         //Calculate delta time
-        float delta_time = 0f;
-        if(this.state_time != -1f)
-            delta_time = state_time - this.state_time;
-        this.state_time = state_time;
+        float delta_time;
+        if(this.state_time == -1f)
+            this.state_time = state_time;
+        delta_time = state_time - this.state_time;
 
         //Calculate positions based on velocity and elapsed time
         position.x += velocity.x * delta_time;
