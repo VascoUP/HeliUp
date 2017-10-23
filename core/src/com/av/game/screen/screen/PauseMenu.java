@@ -1,5 +1,6 @@
 package com.av.game.screen.screen;
 
+import com.av.game.file.Record;
 import com.av.game.graphics.GameRenderer;
 import com.av.game.gui.PauseMenuUI;
 import com.av.game.input.Input;
@@ -23,8 +24,16 @@ public class PauseMenu extends AbstractScreen {
         //And this Screen's input handler
         InputObserver.addInputListenner(Input.gui_handler);
 
+        //Calculate new high score
+        int high_score = Record.getHighScore();
+        int score = (int) Game.getGame().getHelicopter().getPosition().x/100;
+        if(score > high_score) {
+            high_score = score;
+            Record.setHighScore(score);
+        }
+
         //Change UI
-        GameRenderer.getInstance().setUI(new PauseMenuUI(this, (int) Game.getGame().getHelicopter().getPosition().x/100));
+        GameRenderer.getInstance().setUI(new PauseMenuUI(this, high_score, score));
     }
 
     @Override

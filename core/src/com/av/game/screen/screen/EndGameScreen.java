@@ -1,5 +1,6 @@
 package com.av.game.screen.screen;
 
+import com.av.game.file.Record;
 import com.av.game.graphics.GameRenderer;
 import com.av.game.gui.EndGameUI;
 import com.av.game.input.Input;
@@ -22,8 +23,16 @@ public class EndGameScreen extends AbstractScreen {
         //And this Screen's input handler
         InputObserver.addInputListenner(Input.gui_handler);
 
+        //Calculate new high score
+        int high_score = Record.getHighScore();
+        int score = (int) Game.getGame().getHelicopter().getPosition().x/100;
+        if(score > high_score) {
+            high_score = score;
+            Record.setHighScore(score);
+        }
+
         //Change UI
-        GameRenderer.getInstance().setUI(new EndGameUI((int) Game.getGame().getHelicopter().getPosition().x/100));
+        GameRenderer.getInstance().setUI(new EndGameUI(high_score, score));
     }
 
     @Override
@@ -31,7 +40,7 @@ public class EndGameScreen extends AbstractScreen {
         Game.getGame().getHelicopter().update();
         GameRenderer.getInstance().render(0f);
 
-        if(((EndGameUI)GameRenderer.getInstance().getUI()).animation_over && Game.getGame().getHelicopter().getPosition().y < 0)
+        if(((EndGameUI)GameRenderer.getInstance().getUI()).animation_over && Game.getGame().getHelicopter().getPosition().y < -100f)
             ScreenManager.getInstance().showScreen(ScreenEnum.PAUSE_MENU);
     }
 

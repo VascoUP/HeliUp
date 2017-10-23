@@ -34,7 +34,7 @@ public class VisualObjectSpawner {
         if(random.nextInt(200) == 1) {
             Vector3 cam_position = GameRenderer.getCamPosition();
             Vector2 obj_position = new Vector2(cam_position.x + ScreenInfo.width, RandomFunctions.nextFloat(random, MAX_HEIGHT, MIN_HEIGHT));
-            renderer.addZ0(new VisualObject(obj_position, new Vector2(0.25f, 0f), new Sprite(AssetManager.getInstance().cloud_texture), true));
+            renderer.addZ0(new VisualObject(obj_position, new Vector2(25f, 0f), new Sprite(AssetManager.getInstance().cloud_texture), true));
         }
     }
 
@@ -42,7 +42,7 @@ public class VisualObjectSpawner {
         if(random.nextInt(400) == 1) {
             Vector3 cam_position = GameRenderer.getCamPosition();
             Vector2 obj_position = new Vector2(cam_position.x + ScreenInfo.width, RandomFunctions.nextFloat(random, MAX_HEIGHT, MIN_HEIGHT));
-            renderer.addZ2(new VisualObject(obj_position, new Vector2(-0.5f, 0f), new Sprite(AssetManager.getInstance().cloud_texture), false));
+            renderer.addZ2(new VisualObject(obj_position, new Vector2(-50f, 0f), new Sprite(AssetManager.getInstance().cloud_texture), false));
         }
     }
 }
